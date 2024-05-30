@@ -1,0 +1,23 @@
+/**
+ * @file: search.vue
+ * @version: 1.0.0
+ * @date: 2024-05-30
+ * @auther: Vica Zhuo
+ * @email: zhuovica@gmail.com
+ * @Blog: https://vicazhuo.tech
+ * @lastModified: 2024-05-30 by Vica Zhuo
+ */
+
+<!--
+ - Dao-ke is a comprehensive and powerful property management system.
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using Dao-ke.
+ -
+ - @Author zhuovica@gmail.com>
+ - @Link   https://github.com/vica2024/DaokeHomestay.git
+-->
+
+<template>
+
+</template>
