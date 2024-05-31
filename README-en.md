@@ -11,9 +11,9 @@
 </p>
 
 This is a POS system specifically tailored for offline brand chain stores, adaptable for both PC and iPad devices. Picture this: when distinguished customers visit your brand store and express purchase intentions after being introduced to your products by professional salespeople, your sales staff seamlessly utilize the professional iPad POS to provide a high-quality, efficient shopping experience. Undoubtedly, this enhances your brand image. Beyond offering mainstream POS functionalities and a user-friendly interface, this system can also be customized to match your brand's color scheme. It serves as the cornerstone of your enterprise digitization, empowering you to achieve objectives like <a href="" target="_blank">⭐Marketing Online</a> <a href="" target="_blank">⭐Sales Online</a> <a href="" target="_blank">⭐Service Online</a> and <a href="" target="_blank">⭐Production Online</a>."
-<h4 align="center">
+
 Open-source projects thrive on community support. If you find this project helpful, please consider giving it a star ⭐️ on GitHub. Your support and encouragement mean the world to me!
-</h4>
+
 ## Flowcharts
 
 
