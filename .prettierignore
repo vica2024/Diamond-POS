@@ -1,0 +1,13 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/.vscode
+**/.husky
+**/dist
+**/docs
+**/build
+**/public
+**/out
+**/temp
+**/logs
