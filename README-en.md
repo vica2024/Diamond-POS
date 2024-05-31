@@ -1,6 +1,6 @@
-中文 | [English](./README-en.md)
+[中文](./README.md) | English
 
-# Cashier System
+# Diamond POS
 <p align="center">
     <img src="https://s1.imagehub.cc/images/2024/04/29/9e531fec82c60fefbaceaafc8fbf7229.png" width="150" />
 </p>

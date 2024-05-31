@@ -1,6 +1,6 @@
 中文 | [English](./README-en.md)
 
-# 品牌零售收银系统
+# 钻石 POS
 <p align="center">
     <img src="https://s1.imagehub.cc/images/2024/04/29/9e531fec82c60fefbaceaafc8fbf7229.png" width="150" />
 </p>
