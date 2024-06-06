@@ -35,7 +35,6 @@ const useAppStore = defineStore('tabBar', {
       return Array.from(this.cacheTabList);
     },
   },
-
   actions: {
     updateTabList(route) {
       if (BAN_LIST.includes(route.name)) return;

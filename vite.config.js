@@ -65,6 +65,7 @@ export default defineConfig({
     extensions: ['.ts', '.js'],
   },
   css: {
+    postcss: './postcss.config.js', // 指定 PostCSS 配置文件路径
     preprocessorOptions: {
       less: {
         modifyVars: {

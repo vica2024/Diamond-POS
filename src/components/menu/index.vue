@@ -86,17 +86,13 @@ export default {
 
 		const renderSubMenu = () => {
 			function travel(_route, nodes = []) {
-				if (_route) {
-					_route.forEach((element) => {
+        const menus = _route[0].children
+				if (menus) {
+          menus.forEach((element) => {
 						// This is demo, modify nodes as needed
-						const icon = element?.meta?.icon ? () => h(compile(`<${element?.meta?.icon}/>`),{style: {
-                color: 'white',
-                fontSize: '50px',
-                marginRight:'-15px'
-              }}) : null;
-						const node =
-							element?.children && element?.children.length !== 0 ? (
-								<a-sub-menu style="flex-direction: column;text-align: center; padding-top: 10px;color: #fff;"
+						const icon = element?.meta?.icon ? () => h(compile(`<${element?.meta?.icon}/>`)) : null;
+						const node = element?.children && element?.children.length !== 0 ? (
+								<a-sub-menu
 									key={element?.name}
 									v-slots={{
 										icon,
@@ -106,7 +102,7 @@ export default {
 									{travel(element?.children)}
 								</a-sub-menu>
 							) : (
-								<a-menu-item style="flex-direction: column;text-align: center;padding-top: 10px;color: #fff;" key={element?.name} v-slots={{ icon }} onClick={() => goto(element)}>
+								<a-menu-item key={element?.name} v-slots={{ icon }} onClick={() => goto(element)}>
 									{t(element?.meta?.locale || "")}
 								</a-menu-item>
 							);
@@ -123,8 +119,8 @@ export default {
 				mode={topMenu.value ? "horizontal" : "vertical"}
 				v-model:collapsed={collapsed.value}
 				v-model:open-keys={openKeys.value}
-				show-collapse-button={appStore.device !== "mobile"}
 				auto-open={false}
+        theme="dark"
 				selected-keys={selectedKey.value}
 				auto-open-selected={true}
 				level-indent={34}
@@ -140,6 +136,7 @@ export default {
 
 <style lang="less" scoped>
 :deep(.arco-menu-inner) {
+  padding: 15px 10px;
 	.arco-menu-inline-header {
 		display: flex;
 		align-items: center;
@@ -150,9 +147,32 @@ export default {
 		}
 	}
   .arco-menu-item{
-    line-height: 18px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 13px;
+    width: 7.1vh;
+    padding-top: 10px;
     padding-bottom: 15px;
-    font-size: 20px;
+    margin-bottom: 15px;
+    span:first-child{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 5px;
+      padding-left: 18px;
+      svg{
+        font-size: 28px;
+        margin-bottom: 5px;
+      }
+    }
+    span:last-child{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+    }
   }
 }
 </style>

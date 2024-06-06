@@ -2,19 +2,11 @@
   <div class="navbar">
     <div class="left-side">
       <a-space>
-        <img alt="logo"
-             src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
-        />
-        <a-typography-title
-            :style="{ margin: 0, fontSize: '18px',fontWeight:'bold'}"
-            :heading="5"
-        >
+        <img alt="logo" src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"/>
+        <a-typography-title v-if="appStore.device === 'desktop'" :style="{ margin: 0, fontSize: '18px',fontWeight:'bold'}" :heading="5">
           {{ appStore.projectName }}
         </a-typography-title>
-        <icon-menu-fold
-            v-if="!topMenu && appStore.device === 'mobile'"
-            style="font-size: 23px; margin-left: 10px; cursor: pointer"
-            @click="toggleDrawerMenu"
+        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 23px; margin-left: 10px; cursor: pointer" @click="toggleDrawerMenu"
         />
       </a-space>
     </div>
@@ -182,20 +174,20 @@
           </template>
         </a-dropdown>
       </li>
-      <li>
-        <a-tooltip :content="$t('settings.title')">
-          <a-button
-              class="nav-btn"
-              size="large"
-              shape="round"
-              @click="setVisible"
-          >
-            <template #icon>
-              <icon-settings size="28"/>
-            </template>
-          </a-button>
-        </a-tooltip>
-      </li>
+<!--      <li>-->
+<!--        <a-tooltip :content="$t('settings.title')">-->
+<!--          <a-button-->
+<!--              class="nav-btn"-->
+<!--              size="large"-->
+<!--              shape="round"-->
+<!--              @click="setVisible"-->
+<!--          >-->
+<!--            <template #icon>-->
+<!--              <icon-settings size="28"/>-->
+<!--            </template>-->
+<!--          </a-button>-->
+<!--        </a-tooltip>-->
+<!--      </li>-->
 
     </ul>
   </div>
@@ -277,7 +269,6 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
   justify-content: space-between;
   height: 100%;
   background-color: var(--color-bg-2);
-  border-bottom: 1px solid var(--color-border);
 }
 
 .left-side {

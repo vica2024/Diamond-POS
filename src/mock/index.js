@@ -14,6 +14,8 @@ import '@/views/form/step/mock';
 
 import '@/views/profile/basic/mock';
 
+import '@/views/cashier/mock';
+
 import '@/views/visualization/data-analysis/mock';
 import '@/views/visualization/multi-dimension-data-analysis/mock';
 
