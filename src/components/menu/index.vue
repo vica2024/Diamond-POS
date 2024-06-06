@@ -152,7 +152,7 @@ export default {
     justify-content: center;
     align-items: center;
     line-height: 13px;
-    width: 7.1vh;
+    width: 6.3vh;
     padding-top: 10px;
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -171,7 +171,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 13px;
+      font-size: 16px;
     }
   }
 }

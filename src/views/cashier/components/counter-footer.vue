@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="payment-box">
-    <a-button type="primary" long>立即支付</a-button>
+    <a-button type="primary" shape="round" long>立即支付</a-button>
   </div>
 </div>
 </template>

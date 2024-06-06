@@ -30,7 +30,7 @@ const changeCart=(index, item) => {
         <div class="title-box">
           <a-typography-text class="text-15" style="margin-bottom: 2px; flex: 1;" :ellipsis="true">{{item.cart[0].productInfo.store_name}}</a-typography-text>
           <span class="right-del">
-             <icon-delete class="del" onclick="delCart(index,item)" size="15"/>
+             <icon-delete class="del" onclick="delCart(index,item)" size="20"/>
           </span>
 
         </div>

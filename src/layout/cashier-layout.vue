@@ -10,6 +10,7 @@
           class="layout-sider"
           :collapsible="true"
           :width="menuWidth"
+          theme="dark"
           :style="{ paddingTop: navbar ? paddingStyle.paddingTop : '' }"
           :hide-trigger="true"
         >
@@ -17,7 +18,7 @@
             <Menu />
           </div>
         </a-layout-sider>
-        <a-layout class="layout-content" :style="paddingStyle">
+        <a-layout class="layout-content">
           <a-layout-content class="layout-main">
             <PageLayout />
           </a-layout-content>
@@ -100,7 +101,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 97;
     width: 100%;
     height: @nav-size-height;
   }
@@ -109,7 +110,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 99;
+    z-index: 96;
     height: 100%;
     border: none;
     &::after {
@@ -150,19 +151,21 @@
   }
 
   .layout-content {
-    height: 100vh;
+    height: 94.4vh;
+    border-radius: 20px 0 0 0;
+    margin-left: 93px;
+    margin-top: 63px;
+    z-index: 99;
     overflow: hidden;
     background-color: var(--color-fill-2);
     transition: padding 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
     display: grid;
-    // grid-template-columns: auto;
     grid-template-rows: auto 1fr auto;
     grid-auto-rows: auto;
     grid-template-areas:
         'tabBar'
         'main'
         'footer';
-
         .layout-tabBar {
           grid-area: tabBar;
         }

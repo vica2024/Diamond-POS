@@ -10,7 +10,7 @@ import './mock';
 import App from './App.vue';
 import '@/assets/style/global.less';
 import '@/api/interceptor';
-import '@arco-themes/vue-diamond-pos/index.less';
+import '@arco-themes/vue-diamond-web3-pos/index.less';
 
 const app = createApp(App);
 

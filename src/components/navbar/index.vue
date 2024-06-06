@@ -16,7 +16,7 @@
     <ul class="right-side">
       <li>
         <a-tooltip :content="$t('settings.search')">
-          <a-button class="nav-btn" type="outline" size="large" :shape="'circle'">
+          <a-button class="nav-btn"  type="text" size="large" :shape="'circle'">
             <template #icon>
               <icon-search size="28"/>
             </template>
@@ -27,7 +27,7 @@
         <a-tooltip :content="$t('settings.language')">
           <a-button
               class="nav-btn"
-              type="outline"
+              type="text"
               size="large"
               :shape="'circle'"
               @click="setDropDownVisible"
@@ -63,7 +63,7 @@
         >
           <a-button
               class="nav-btn"
-              type="outline"
+              type="text"
               :shape="'circle'"
               size="large"
               @click="handleToggleTheme"
@@ -81,7 +81,7 @@
             <a-badge :count="9" dot>
               <a-button
                   class="nav-btn"
-                  type="outline"
+                  type="text"
                   size="large"
                   :shape="'circle'"
                   @click="setPopoverVisible"
@@ -113,7 +113,7 @@
         >
           <a-button
               class="nav-btn"
-              type="outline"
+              type="text"
               size="large"
               :shape="'circle'"
               @click="toggleFullScreen"
@@ -127,17 +127,15 @@
       </li>
       <li>
         <a-dropdown trigger="click">
-          <a-row style="height: 46px;text-align: center">
-            <a-col :span="9" style="margin-top: 5px;">
-              <a-avatar :size="35" shape="square" :style="{ marginRight: '8px', cursor: 'pointer' }">
+          <div style="display: flex;justify-content: space-between;align-items: center;">
+            <a-avatar :size="30" shape="square" :style="{ marginRight: '8px', cursor: 'pointer' }">
                 <img alt="avatar" :src="avatar"/>
-              </a-avatar>
-            </a-col>
-            <a-col :span="15" style="text-align: left;padding-left: 10px;">
-              <div style="margin: 7px 0 0 0;font-size: 15px;font-weight: bold">Alex</div>
-              <span style="color: #999">admin</span>
-            </a-col>
-          </a-row>
+            </a-avatar>
+            <div style="flex: 1;">
+              <a-typography-title style="margin: -2px 7px;" :heading="6" class="text-14 color-2"><b>{{ name }}</b></a-typography-title>
+              <a-typography-text class="color-2 text-12">{{ jobName }}</a-typography-text>
+            </div>
+          </div>
           <template #content>
             <a-doption>
               <a-space @click="switchRoles">
@@ -213,6 +211,12 @@ const locales = [...LOCALE_OPTIONS];
 const avatar = computed(() => {
   return userStore.avatar;
 });
+const name = computed(() => {
+  return userStore.name;
+});
+const jobName = computed(() => {
+  return userStore.jobName;
+});
 const theme = computed(() => {
   return appStore.theme;
 });
@@ -268,7 +272,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
   display: flex;
   justify-content: space-between;
   height: 100%;
-  background-color: var(--color-bg-2);
+  background-color: var(--color-menu-dark-bg);
 }
 
 .left-side {
@@ -294,6 +298,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
     display: flex;
     align-items: center;
     padding: 0 10px;
+    margin-left: 15px;
   }
 
   a {
@@ -302,8 +307,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
   }
 
   .nav-btn {
-    border-color: rgb(var(--gray-2));
-    color: rgb(var(--gray-8));
+    color: rgb(var(--gray-3));
     font-size: 16px;
   }
 

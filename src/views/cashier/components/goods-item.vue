@@ -15,7 +15,7 @@ const showGoodsAttrs = () => {
 </script>
 <template>
   <a-row :gutter="12">
-    <a-col v-for="(item,index) in items"  :xs="{ span: 24, offset: 0 }" :lg="{ span: 4, offset: 0 }" :md="{ span: 8, offset: 0 }" >
+    <a-col v-for="(item,index) in items"  :xs="{ span: 24, offset: 0 }" :lg="{ span: 6, offset: 0 }" :md="{ span: 8, offset: 0 }" >
       <a-card :bordered="false" style="margin-bottom: 12px; border-radius: 15px;" >
         <template #cover>
           <div class="p-10">
