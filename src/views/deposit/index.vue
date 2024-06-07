@@ -1,378 +1,91 @@
 <template>
-  <div class="content">
-    <div class="goodsCard acea-row row-between">
-      <div class="conter bg-white">
-        <div class="cart">
-          <a-input
-              search
-              enter-button="搜索"
-              v-model="lodgeFrom.keyword"
-              placeholder="搜索用户/店员手机号或ID"
-              @on-search="searchData"
-              size="large"
-          />
+  <div class="content pl-5">
+    <div class="goodsCard row-between">
+      <div class="conter bg-white rounded-3xl">
+        <div class="cart pt-5 pl-5 pr-5">
+          <a-input-search v-model="lodgeFrom.keyword" placeholder="搜索用户/店员手机号或ID" size="large" search-button/>
         </div>
-     <div class="pending-user" v-if="tableHang.length" @scroll="addPage">-->
-          <div
-              class="list"
-              :class="selIndex === index ? 'bor' : ''"
-              v-for="(item, index) in tableHang"
-              :key="index"
-              @click="selectUser(index, item)"
-          >
-            <div class="item row-between">
-              <div class="left_content acea-row">
-                <div class="avatar">
-                  <img
-                      :src="item.avatar ? item.avatar : defaultAvatar"
-                      alt="头像"
-                  />
-                </div>
-                <div class="user">
-                  <div class="name">{{ item.nickname || "游客" }}</div>
-                  <div class="order-price">
-                    订单金额：
-                    <span class="price-num">￥{{ item.price }}</span>
+        <div class="flex">
+          <div class="flex-1 border-r-1" style="height: 82vh;" v-if="tableHang.length">
+            <div class="pending-user">
+              <div
+                  class="list"
+                  :class="selIndex === index ? 'bor' : ''"
+                  v-for="(item, index) in tableHang"
+                  :key="index"
+                  @click="selectUser(index, item)"
+              >
+                <div class="item row-between">
+                  <div class="left_content flex">
+                    <div class="avatar">
+                      <img
+                          :src="item.avatar ? item.avatar : 'https://multi-store.crmeb.net/view_cashier/img/yonghu.908b01d3.png'"
+                          alt="头像"/>
+                    </div>
+                    <div class="user">
+                      <div class="name">{{ item.nickname || "游客" }}</div>
+                      <div class="order-price">
+                        订单金额：
+                        <span class="price-num">￥{{ item.price }}</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="right_content">
-                <div class="time">{{ item._add_time }}</div>
-                <div class="acea-row row-right">
+                  <div class="right_content">
+                    <div class="time">{{ item._add_time }}</div>
+                    <div class="flex row-right">
                   <span
                       type="text"
                       class="tidan"
                       @click.stop="billHang(item, index)"
                   >提单</span
                   >
-                  <span
-                      type="text"
-                      class="shanchu"
-                      @click.stop="hangDel(item, index)"
-                  >删除</span
-                  >
+                      <span
+                          type="text"
+                          class="shanchu"
+                          @click.stop="hangDel(item, index)"
+                      >删除</span
+                      >
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div v-else class="no-order">
-          <img src="../../assets/images/no-order.png" alt=""/>
-          <span class="trip">噢～目前暂无挂单</span>
-        </div>
-      </div>
-      <div class="goods" v-if="cartList.length">
-        <div class="sel-user">
-          <div class="avatar">
-          ff
-          </div>
-          <div class="item-right">
-            <div class="user">
-              <div>{{ userData.nickname || "游客" }}</div>
-            </div>
-            <div class="money" v-if="userData.uid">
-              <div>
-                <span class="pr20">{{ userInfo.phone || "暂无手机号" }}</span
-                >余额 <span class="num">{{ userInfo.now_money || 0 }}</span>
-              </div>
-              <div>
-                积分 <span class="num">{{ userInfo.integral || 0 }}</span>
-              </div>
+            <div class="pt-7 pl-5 pr-5 shaw-1">
+              <a-button shape="round" type="primary" long>结账 1000</a-button>
             </div>
           </div>
-        </div>
-        <div class="cart-num">
-          <div class="cart-num-left">
-            <span>共</span>
-            <span class="num">{{ cartSum }}</span>
-            <span>件商品</span>
+          <div v-else class="no-order">
+            <img src="../../assets/images/no-order.png" alt=""/>
+            <span class="trip">噢～目前暂无挂单</span>
           </div>
-          <div>
-            <span class="text">实付：</span>
-            <span class="money"
-            ><span class="rmb">¥</span
-            >{{ priceInfo.payPrice ? priceInfo.payPrice : 0 }}</span
-            >
-          </div>
-        </div>
-        <div class="goods-list">
-          <goodsList :cartList="cartList"></goodsList>
-          <div class="discount-con">
-            <div class="item acea-row">
-              <div>会员优惠金额：</div>
-              <div>{{ priceInfo.vipPrice || 0 }}</div>
-            </div>
-            <div class="item acea-row">
-              <div>优惠券金额：</div>
-              <div>{{ priceInfo.couponPrice || 0 }}</div>
-            </div>
-            <div class="item acea-row">
-              <div>积分抵扣：</div>
-              <div>{{ priceInfo.deductionPrice || 0 }}</div>
-            </div>
-            <div
-                class="item acea-row"
-                v-for="(item, index) in priceInfo.promotionsDetail"
-                :key="index"
-            >
-              <div>{{ item.title }}：</div>
-              <div>{{ item.promotions_price || 0 }}</div>
-            </div>
+          <div class="pt-5 pl-3 pr-5 w-1/5">
+            <counter-tools></counter-tools>
           </div>
         </div>
       </div>
-      <div v-else class="no-order">
-        <span class="trip">噢～目前暂无挂单记录</span>
-      </div>
-    </div>
-    <footer>
-      <div class="footer">
-        <div class="pay acea-row row-between-wrapper" v-if="cartList.length">
-          <div class="bnt" @click="payPrice('cash')">现金收款</div>
-          <div class="bnt" @click="payPrice('')">微信/支付宝</div>
-          <div class="bnt on" @click="payPrice('yue')" v-if="userInfo.uid && userInfo.now_money >= (priceInfo.payPrice || 0)"
-          >
-            余额收款
+      <div class="flex-1 pl-5 pr-5">
+        <div class="bg-white rounded-3xl pending-user p-5 relative" style="height: 87.7vh; overflow: hidden">
+          <div class="">
+            <deposit-goods-info/>
+            <deposit-goods-list/>
           </div>
-          <div class="bnt on bntUid" v-else>余额收款</div>
-        </div>
-        <div class="pay noCart acea-row row-between-wrapper" v-else>
-          <div class="bnt">现金收款</div>
-          <div class="bnt">微信/支付宝</div>
-          <div class="bnt on">余额收款</div>
-        </div>
-      </div>
-      <div class="right">
-        <div v-if="cartList.length" class="rightCon">
-          <div class="item" :class="integral ? 'on' : ''" @click="integralTap">
-            积分
-          </div>
-          <div class="item" @click="changePrice">改价</div>
-          <div class="item" @click="remarks">备注</div>
-        </div>
-        <div class="noCart" v-else>
-          <div class="item">积分</div>
-          <div class="item">改价</div>
-          <div class="item">备注</div>
-        </div>
-      </div>
-    </footer>
-    <a-modal
-        v-model="modalUser"
-        scrollable
-        footer-hide
-        closable
-        title="用户列表"
-        :mask-closable="false"
-        width="900"
-    >
-      <userList ref="users" @getUserId="getUserId" v-if="modalUser"></userList>
-    </a-modal>
-    <recharge
-        ref="recharge"
-        :userInfo="userInfo"
-        @getSuccess="getSuccess"
-    ></recharge>
-    <couponList
-        ref="coupon"
-        :uid="userInfo.uid"
-        :cartList="cartList"
-        @getCouponId="getCouponId"
-        v-if="userInfo && cartList.length"
-    ></couponList>
-    <storeList
-        ref="store"
-        :uid="userInfo ? userInfo.uid : 0"
-        @getStoreId="getStoreId"
-        @getUserInfo="getUserInfo"
-    >
-    </storeList>
-    <a-modal v-model="modal" title="备注" footer-hide>
-      <a-input
-          v-model="createOrder.remarks"
-          maxlength="200"
-          show-word-limit
-          :rows="5"
-          type="textarea"
-          placeholder="订单备注"
-          style="width: 100%"
-      />
-      <a-button class="mt20" type="primary" long @click="onSubmit()">提交</a-button>
-    </a-modal>
-    <a-modal
-        v-model="modal2"
-        title="订单改价"
-        footer-hide
-        @on-cancel="cancelPrice"
-    >
-      <a-form :model="formItem" :label-width="100">
-        <a-form-item label="订单改价：">
-          <div class="acea-row">
-            <div class="inputNum">
-              <a-input-number
-                  :min="0"
-                  v-model="formItem.price"
-                  @on-change="tapPrice"
-              />
-              元
-            </div>
-            <div class="inputNum discount">
-              <a-input-number
-                  :min="0"
-                  :max="100"
-                  v-model="discountPrice"
-                  @on-change="tapDiscount"
-              />
-              %
-            </div>
-          </div>
-        </a-form-item>
-        <a-form-item label="改价后金额：">
-          <div class="changePrice">
-            ¥<span class="price">{{ formItem.price || 0 }}</span>
-          </div>
-        </a-form-item>
-        <div class="acea-row row-center-wrapper">
-          <a-button type="primary" class="buttonPrice" @click="onSubmit2"
-          >确认改价
-          </a-button>
-        </div>
-      </a-form>
-    </a-modal>
-    <a-modal
-        v-model="modalPay"
-        footer-hide
-        width="430px"
-        class="modalPay"
-        @on-cancel="modalPayCancel"
-    >
-      <div class="payPage">
-        <div class="header acea-row row-center-wrapper">
-          <div class="pictrue"><img src="../../assets/images/gold.png"/></div>
-          <div class="text">应收金额(元)</div>
-        </div>
-        <div class="money">
-          ¥<span class="num">{{
-            priceInfo.payPrice ? priceInfo.payPrice : 0
-          }}</span>
-        </div>
-        <a-input
-            ref="focusNum"
-            v-model="payNum"
-            size="large"
-            type="url"
-            @input="inputSaoMa"
-            placeholder="请点击输入框聚焦扫码或输入编码号"
-            style="margin-top: 16px"
-        />
-        <div class="process">
-          <div class="pictrue">
-            <img
-                src="../../assets/images/process1.png"
-                v-if="createOrder.pay_type == 'yue'"
-            />
-            <img src="../../assets/images/process2.png" v-else/>
-          </div>
-          <div class="list acea-row row-between-wrapper">
-            <div class="item one">
-              <div class="name">
-                {{
-                  createOrder.pay_type == "yue" ? "出示付款码" : "扫描收银码"
-                }}
-              </div>
-              <div>
-                {{
-                  createOrder.pay_type == "yue"
-                      ? "用户打开个人中心"
-                      : "引导用户扫描"
-                }}
-              </div>
-            </div>
-            <div class="item two">
-              <div class="name">
-                {{ createOrder.pay_type == "yue" ? "扫描付款码" : "完成支付" }}
-              </div>
-              <div>
-                {{ createOrder.pay_type == "yue" ? "扫码枪" : "用户线上支付" }}
-              </div>
-            </div>
-            <div class="item three">
-              <div class="name">确认收款</div>
-              <div>收银台点击确认</div>
-            </div>
+
+          <div v-if="cartList.length" class="no-order">
+            <span class="trip">噢～目前暂无挂单记录</span>
           </div>
         </div>
       </div>
-    </a-modal>
-    <a-modal
-        v-model="modalCash"
-        footer-hide
-        width="770px"
-        class="cash"
-        @on-cancel="cancel"
-    >
-      <div class="cashPage acea-row">
-        <div class="left">
-          <div class="pictrue">
-            <img src="../../assets/images/gold.png"/>
-          </div>
-          <div class="text">应收金额(元)</div>
-          <div class="money">
-            ¥<span class="num">{{
-              priceInfo.payPrice ? priceInfo.payPrice : 0
-            }}</span>
-          </div>
-        </div>
-        <div class="right">
-          <div class="rightCon">
-            <div class="top acea-row row-between-wrapper">
-              <div>实际收款(元)</div>
-              <div class="num">{{ collection }}</div>
-            </div>
-            <div class="center acea-row row-between-wrapper">
-              <div>需找零(元)</div>
-              <div
-                  class="num"
-                  v-if="
-                  this.$computes.Sub(
-                    collection,
-                    priceInfo.payPrice ? priceInfo.payPrice : 0
-                  ) > 0
-                "
-              >
-                {{
-                  this.$computes.Sub(
-                      collection,
-                      priceInfo.payPrice ? priceInfo.payPrice : 0
-                  )
-                }}
-              </div>
-              <div class="num" v-else>0</div>
-            </div>
-            <div class="bottom acea-row">
-              <div
-                  class="item acea-row row-center-wrapper"
-                  :class="item == '.' ? 'spot' : ''"
-                  v-for="(item, index) in numList"
-                  :key="index"
-                  @click="numTap(item)"
-              >
-                {{ item }}
-              </div>
-              <div class="item acea-row row-center-wrapper" @click="delNum">
-                <Icon type="ios-backspace"/>
-              </div>
-            </div>
-          </div>
-          <a-button type="primary" @click="cashBnt">确认</a-button>
-        </div>
-      </div>
-    </a-modal>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import {reactive, ref} from 'vue';
+import {getHangList, getDataInfo} from '@/api/order.js'
+import CounterTools from "@/views/deposit/components/counter-tools.vue";
+import DepositGoodsInfo from "@/views/deposit/components/deposit-goods-info.vue";
+import DepositGoodsList from "@/views/deposit/components/deposit-goods-list.vue";
+
 const formItem = reactive({
   price: 0,
 });
@@ -538,7 +251,7 @@ const disabled = ref(false); //阻止属性弹窗多次提交
 const unchangedPrice = ref(0);
 const selIndex = ref(0);
 const userData = ref({});
-const defaultAvatar = ref('');
+const defaultAvatar = ref('../assets/images/tourist.png');
 
 const handleChange = (column) => {
 
@@ -552,6 +265,18 @@ const setUp = (touristId) => {
   // 定义 setUp 方法
 };
 
+const getDepositOrderList = async () => {
+  const {data} = await getHangList();
+  tableHang.value = data.list
+}
+
+const getDepositList = async () => {
+  const {data} = await getDataInfo(10);
+  userInfo.value = data.userInfo;
+  console.log(data)
+}
+getDepositList();
+getDepositOrderList();
 </script>
 
 <style scoped lang="less">
@@ -849,37 +574,6 @@ const setUp = (touristId) => {
     }
   }
 
-  .cart-num {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 500;
-    align-items: flex-end;
-    margin: 20px 0;
-
-    .text {
-      font-size: 15px;
-    }
-
-    .cart-num-left {
-      color: #303133;
-      font-size: 16px;
-
-      .num {
-        color: #FF7700;
-      }
-    }
-
-    .money {
-      color: #F5222D;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 24px;
-
-      .rmb {
-        font-size: 18px;
-      }
-    }
-  }
 
   .goods-list {
     flex: 1;
@@ -890,11 +584,8 @@ const setUp = (touristId) => {
 }
 
 .conter {
-  width: 500px;
-  height: 100%;
-  padding: 20px;
-  box-shadow: 5px 0px 14px 0px rgba(0, 0, 0, 0.04);
-
+  width: 550px;
+  box-shadow: 5px 0 14px 0 rgba(0, 0, 0, 0.04);
 
   .cart {
     position: relative;
@@ -902,7 +593,7 @@ const setUp = (touristId) => {
 
   .pending-user {
     width: 100%;
-    height: calc(100% - 50px);
+    height: calc(100% - 130px);
     margin-top: 20px;
     overflow: hidden;
     overflow-y: scroll;

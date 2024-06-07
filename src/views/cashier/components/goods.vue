@@ -20,7 +20,7 @@ const props = defineProps({
 <template>
   <div class="goods">
     <goods-search :categoryList="cateList"></goods-search>
-    <a-scrollbar style="height:72vh;overflow-y: auto;overflow-x: hidden">
+    <a-scrollbar style="height:75.7vh;overflow-y: auto;overflow-x: hidden;">
       <goods-item :items="goodsList"/>
     </a-scrollbar>
   </div>

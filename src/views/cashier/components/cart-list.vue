@@ -28,11 +28,11 @@ const changeCart = (event, item) => {
 
 <template>
   <div>
-    <div class="purchase-info border-b-1 p-15">
-      <span>已选购<b style="color: #ff7700"> {{total}} </b>件</span>
-      <span onclick="emptyCart">清除</span>
+    <div class="purchase-info border-b-1 p-5">
+      <span class="lg:text-base sm:text-sm">已选购<b style="color: #ff7700"> {{total}} </b>件</span>
+      <span class="lg:text-base sm:text-sm" onclick="emptyCart">清除</span>
     </div>
-    <a-scrollbar v-if="total>0" style="height:58vh;overflow: auto;">
+    <a-scrollbar v-if="total>0" style="height:55vh;overflow: auto;">
         <cart-list-item v-for="(item,index) in cartList" :item="item" :key="index" :index="index" />
     </a-scrollbar>
     <a-empty v-else style="height:58vh;overflow: auto; ">
@@ -56,5 +56,6 @@ const changeCart = (event, item) => {
     font-size: 13px;
   }
 }
+
 
 </style>

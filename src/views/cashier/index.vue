@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="page">
     <counter :carts="carts" />
     <goods :goodsList="goodsList" :cateList="cateList"/>
     <modal-goods-attr :product="product"/>
@@ -105,7 +105,7 @@ init()
 </script>
 
 <style scoped lang="less">
-.container {
+.page {
   flex: 1;
   width: 100%;
   min-width: 700px;

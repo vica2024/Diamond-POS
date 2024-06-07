@@ -1,10 +1,3 @@
-.bg-white{
-  background-color:var(--color-bg-2);
-}
-
-
-
-
 
 
 .border-round-1{
@@ -25,52 +18,19 @@
   box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, .06);
 }
 
-
-.p-5{
-  padding: 5px;
-}
-.p-10{
-  padding: 10px;
-}
-.p-15{
-  padding: 15px;
-}
-.p-20{
-  padding: 20px;
-}
-.pt-15{
-  padding-top: 15px;
-}
-
-.mt-10{
-  margin-top: 10px;
-}
-
-.mt-15{
-  margin-top: 15px;
-}
-
-.mt-20{
-  margin-top: 20px;
-}
-
-.position{
-  position: absolute;
-}
-
-.right{
-  float: right;
-}
-.left{
-  float: left;
-}
-
-
 .color-1{
   color: rgb(var(--primary-6));
 }
 .color-2{
   color: rgb(var(--gray-3))!important;
+}
+
+.text-16{
+  font-size: 16px;
+}
+
+.text-15{
+  font-size: 15px;
 }
 .text-14{
   font-size: 14px!important;
@@ -85,6 +45,44 @@
   font-weight: bold;
 }
 
+.cart-item {
+  .arco-input-wrapper {
+    background-color: #FFFFFF !important;
+    border: none !important;
+
+    input {
+      text-align: center;
+    }
+  }
+
+  .arco-input-append {
+    :hover {
+      background-color: rgb(var(--primary-6)) !important;
+    }
+
+    :active {
+      background-color: rgb(var(--primary-6)) !important;
+    }
+
+    button {
+      background-color: rgb(var(--primary-6)) !important;
+
+      .arco-btn-icon {
+        color: #FFFFFF !important;
+      }
+    }
+  }
+
+  .arco-input-prepend, .arco-input-append {
+    border-radius: 14px !important;
+    button {
+      border-radius: 14px !important;
+      .arco-btn-icon {
+        font-size: 13px !important;
+      }
+    }
+  }
+}
 //for PC
 @media (min-width: 1024px) {
 

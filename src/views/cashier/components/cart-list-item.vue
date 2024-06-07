@@ -22,13 +22,13 @@ const changeCart=(index, item) => {
 
 <template>
   <div class="hover">
-    <div class="cart-item p-15">
+    <div class="cart-item p-5">
       <div class="picture">
-        <a-image width="60" :src="item.cart[0].productInfo.image"/>
+        <a-image width="70" :src="item.cart[0].productInfo.image"/>
       </div>
       <div class="info">
         <div class="title-box">
-          <a-typography-text class="text-15" style="margin-bottom: 2px; flex: 1;" :ellipsis="true">{{item.cart[0].productInfo.store_name}}</a-typography-text>
+          <span class="font-500 lg:text-lg md:text-base sm:text-xs pr-1 overflow-hidden text-ellipsis whitespace-nowrap">{{item.cart[0].productInfo.store_name}}</span>
           <span class="right-del">
              <icon-delete class="del" onclick="delCart(index,item)" size="20"/>
           </span>
@@ -39,12 +39,13 @@ const changeCart=(index, item) => {
           <icon-down/>
         </div>
         <div class="bottom">
-          <span class="left"><b>${{ item.cart[0].sum_price }}</b></span>
+          <span class="left font-bold lg:text-lg md:text-base sm:text-xs"><b>${{ item.cart[0].sum_price }}</b></span>
           <span class="right">
              <a-input-number
                  v-model="item.cart[0].cart_num"
                  :max="item.cart[0].productInfo.attrInfo.stock"
                  :min="1"
+                 class="number-input"
                  @on-blur="(e) => {changeCart(e, item);}"
                  @change="changeCart"
                  size="mini" mode="button" min="1"/>
@@ -57,8 +58,8 @@ const changeCart=(index, item) => {
 
 <style scoped lang="less">
 .hover{
-  :hover {
-    background-color: #E5E5E5;
+  &:hover {
+    background: rgba(24, 144, 255, 0.05);
   }
 }
 .cart-item {
@@ -67,9 +68,17 @@ const changeCart=(index, item) => {
   flex-wrap: nowrap;
  .title-box {
     display: flex;
+    align-items: center;
+    span:first-child{
+      flex: 1;
+    }
     .right-del{
-      width: 30px;
+      width: 40px;
       text-align: right;
+      .del{
+        color: rgb(var(--primary-6)) !important;
+        cursor: pointer;
+      }
     }
   }
   .bottom {
@@ -77,6 +86,7 @@ const changeCart=(index, item) => {
 
     .left {
       flex: 2;
+      font-size: 17px;
     }
     .right {
       flex: 1;
@@ -84,8 +94,11 @@ const changeCart=(index, item) => {
   }
 
   .picture {
-    width: 60px;
-    height: 60px;
+    width: 75px;
+    height: 75px;
+    div {
+      border-radius: 5px;
+    }
   }
 
   .info {
@@ -93,13 +106,16 @@ const changeCart=(index, item) => {
     padding-left:15px;
     height: 100%;
     overflow: hidden;
-
+    line-height: 21px;
     .sku {
-      font-size: 11px;
+      font-size: 12px;
       color: #999;
+      cursor: pointer;
       padding: 5px 0;
     }
   }
 }
+
+
 
 </style>
