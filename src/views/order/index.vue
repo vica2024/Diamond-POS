@@ -115,15 +115,9 @@ import DepostRightFooter from "@/views/order/components/depost-right-footer.vue"
 import DepositOrderDetail from "@/views/order/components/deposit-order-detail.vue";
 import OrderTrackList from "@/views/order/components/order-track-list.vue";
 
-const formItem = reactive({
-  price: 0,
-});
-const discountPrice = ref(100);
 const loading = ref(false);
-const totalHang = ref(0);
 const tableHang = ref([]);
 const activeHangon = ref(-1);
-const hangData = ref([]);
 const lodgeFrom = reactive({
   keyword: "",
   page: 1,
@@ -190,47 +184,16 @@ const columns = ref([
     align: "center",
   },
 ]);
-const checkOut = ref(0);
-const modalUser = ref(false);
-const cashBntLoading = ref(false);
-const flag = ref(true);
-const goodFrom = reactive({
-  store_name: "",
-  field_key: "",
-  cate_id: "",
-  page: 1,
-  limit: 30,
-  uid: 0,
-  staff_id: 0,
-});
+
 const total = ref(0);
-const goodData = ref([]);
-const cateData = ref([]);
-const currentCate = ref(0); //分类的当前index；
-const currentTab = ref("2");
-const codeNum = ref("");
-const payNum = ref("");
 const userInfo = ref({});
-const storeInfos = ref({}); //门店店员信息
-const storeList = ref([]); //门店列表
 const attr = reactive({
   productAttr: [],
   productSelect: {},
 });
-const storeInfo = ref({}); //商品信息
-const productValue = ref([]);
-const attrValue = ref(""); //已选属性
-const productId = ref(0); //产品id
+
 const cartList = ref([]);
-const isCart = ref(0);
-const cartInfo = reactive({
-  //更改属性所需参数
-  cart_id: 0,
-  product_id: 0,
-  unique: "",
-});
 const modal = ref(false);
-const fapi = ref({});
 const rule = reactive([
   {
     type: "input",
@@ -243,44 +206,10 @@ const rule = reactive([
     },
   },
 ]);
-const modal2 = ref(false);
-const integral = ref(false); //是否使用积分
-const coupon = ref(false); //是否使用优惠券
-const couponId = ref(0); //优惠券id
-const modalPay = ref(false);
-const cartSum = ref(0);
-const priceInfo = ref({});
-const createOrder = reactive({
-  remarks: "",
-  change_price: 0,
-  cart_id: [], // 购物车id
-  userCode: "",
-  is_price: 0,
-  auth_code: "",
-  new: 0,
-});
-const modalCash = ref(false);
-const numList = ref(["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", "."]);
-const collectionArray = ref([]);
-const collection = ref(0);
-const isOrderCreate = ref(0);
-const discount = ref(false);
-const payTape = ref(""); // 支付方式
-const orderId = ref(""); //订单id
+
 const clientHeight = ref(0);
-const cartHeight = ref(0);
-const goodsHeight = ref(0);
-const invalidList = ref([]);
-const defaultcalc = ref(false);
-const orderSystem = reactive({
-  loadingMsg: null,
-  timer: null,
-});
 const disabled = ref(false); //阻止属性弹窗多次提交
-const unchangedPrice = ref(0);
 const selIndex = ref(0);
-const userData = ref({});
-const defaultAvatar = ref('../assets/images/tourist.png');
 
 const handleChange = (column) => {
 
@@ -334,55 +263,12 @@ getDepositOrderList();
   }
 }
 
-.buttonPrice {
-  width: 460px;
-  height: 36px;
-  margin-top: 50px;
-}
 
-.header .ivu-btn {
-  width: 56px;
-  height: 28px;
-  border-radius: 4px;
-  border: 1px solid #FFFFFF;
-  background-color: unset !important;
-  color: #fff;
 
-  &:hover {
-    border-color: #ccc;
-    color: #ccc;
-  }
-}
 
-.headerCard {
-  background: #1890FF;
-  border-radius: 0 !important;
-}
-
-.noCart {
-  height: 100%;
-  display: flex;
-
-  .tip {
-    text-align: center;
-    color: #ccc;
-  }
-
-  .pictrue {
-    width: 308px;
-    height: 200px;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
 
 .goodsCard {
   flex: 1;
-  max-width: 100%;
-  min-width: 1100px;
   height: calc(100vh - 140px);
   display: flex;
   flex-wrap: nowrap;

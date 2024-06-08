@@ -8,16 +8,13 @@ const props = defineProps({
 });
 const header= [
   {
-    name: '商品'
+    name: '订单ID',
   },
   {
-    name: '单价'
+    name: '订单追踪',
   },
   {
-    name: '数量'
-  },
-  {
-    name: '金额'
+    name: '操作时间',
   }
 ];
 </script>
@@ -25,7 +22,7 @@ const header= [
 <template>
   <div class="table w-full">
     <div class="header flex justify-between">
-      <div v-for="(item,tindex) in header" :key="tindex">
+      <div  v-for="(item,tindex) in header" :key="tindex">
         {{ item.name }}
       </div>
     </div>
@@ -181,7 +178,7 @@ const header= [
     }
 
     .num {
-      margin-left: 30px;
+      text-align: center;
     }
   }
 
