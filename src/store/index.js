@@ -3,7 +3,7 @@ import useAppStore from './modules/app';
 import useUserStore from './modules/user';
 import useTabBarStore from './modules/tab-bar';
 
-const pinia = createPinia();
+const stores = createPinia();
 
 export { useAppStore, useUserStore, useTabBarStore };
-export default pinia;
+export default stores;

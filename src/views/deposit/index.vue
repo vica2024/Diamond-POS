@@ -1,197 +1,80 @@
 <template>
-  <div class="content pl-5">
-    <div class="goodsCard row-between">
-      <div class="conter bg-white rounded-3xl">
-        <div class="cart pt-5 pl-5 pr-5">
-          <a-input-search v-model="lodgeFrom.keyword" placeholder="搜索用户/店员手机号或ID" size="large" search-button/>
+  <div class="pl-5 pr-5 flex">
+    <div class="w-2/5 rounded-3xl bg-white overflow-hidden">
+      <div>
+        <div class="pl-5 pr-5">
+          <a-typography-title :heading="5">订金单列表</a-typography-title>
+          <div class="mt-5">
+            <a-input-search v-model="keyWords" placeholder="输入顾客手机号/店员ID" size="large" search-button/>
+          </div>
         </div>
-        <div class="flex">
-          <div class="flex-1 border-r-1" style="height: 82vh;" v-if="tableHang.length">
-            <div class="pending-user">
-              <div
-                  class="list"
-                  :class="selIndex === index ? 'bor' : ''"
-                  v-for="(item, index) in tableHang"
-                  :key="index"
-                  @click="selectUser(index, item)"
-              >
-                <div class="item row-between">
-                  <div class="left_content flex">
-                    <div class="avatar">
-                      <img
-                          :src="item.avatar ? item.avatar : 'https://multi-store.crmeb.net/view_cashier/img/yonghu.908b01d3.png'"
-                          alt="头像"/>
-                    </div>
-                    <div class="user">
-                      <div class="name">{{ item.nickname || "游客" }}</div>
-                      <div class="order-price">
-                        订单金额：
-                        <span class="price-num">￥{{ item.price }}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="right_content">
-                    <div class="time">{{ item._add_time }}</div>
-                    <div class="flex w-1/2 justify-between" style="float: right;">
-                      <span class="text-sm text-blue-600" @click.stop="billHang(item, index)">提单</span>
-                      <span class="text-sm text-rose-600" @click.stop="hangDel(item, index)">删除</span>
-                    </div>
+        <div class="mt-5 list-hide" v-if="depositOrderList.length">
+          <div :class="['pt-5 pb-5',{'selected': index===getOne }]" v-for="(item, index) in customerList" :key="index"
+               @click="getOne = index">
+            <div class="flex items-center pl-5 pr-5 cursor-pointer">
+              <a-avatar>
+                <img alt=""
+                     :src="item.avatar ? item.avatar : 'https://multi-store.crmeb.net/view_cashier/img/yonghu.908b01d3.png'"/>
+              </a-avatar>
+              <div class="pl-3 flex-1">
+                <div class="text-base flex justify-between">
+                  <span class="text-bold lg:text-lg mr-5 font-bold">{{ item.nickname || "游客" }}</span>
+                  <span class="text-sm text-gray-400">{{ item.phone }}asdas</span>
+                </div>
+                <div class="mt-2 flex justify-between">
+                  <span class="mr-2 text-sm lg:text-base">订单金额：<span class="text-amber-700">￥{{ item.price }}</span></span>
+                  <div class="text-sm lg:text-base">
+                    <span class="mr-2">提单</span>
+                    <span class="text-rose-600">删除</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="pt-7 pl-5 pr-5 shaw-1">
-              <a-button shape="round" type="primary" long>结账 1000</a-button>
-            </div>
           </div>
-          <div v-else class="no-order">
-            <img src="../../assets/images/no-order.png" alt=""/>
-            <span class="trip">噢～目前暂无挂单</span>
-          </div>
-          <div class="pt-5 pl-3 pr-5 w-1/5">
-            <counter-tools></counter-tools>
+        </div>
+        <div class="list-hide flex items-center relative" v-else>
+          <div class="w-3/5 m-auto text-center">
+            <img alt="" src="../../assets/images/no-cart.png">
+            <span class="text-gray-400 text-xs">暂无商品，快去添加吧～</span>
           </div>
         </div>
       </div>
-      <div class="flex-1 pl-5 pr-5">
-        <div class="bg-white rounded-3xl pending-user p-5 relative" style="height: 87.7vh; overflow: hidden">
-          <div class="">
-            <deposit-goods-info/>
-            <deposit-goods-list/>
-          </div>
-
-          <div v-if="cartList.length" class="no-order">
-            <span class="trip">噢～目前暂无挂单记录</span>
-          </div>
-        </div>
+    </div>
+    <div class="ml-5 w-3/5">
+      <div class="p-5 content-hide overflow-hidden bg-white rounded-3xl">
+          <deposit-customer-info :customerInfo ="customerInfo" />
+          <deposit-list></deposit-list>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {reactive, ref} from 'vue';
+import {ref} from 'vue';
 import {getHangList, getDataInfo} from '@/api/order.js'
-import CounterTools from "@/views/deposit/components/counter-tools.vue";
-import DepositGoodsInfo from "@/views/deposit/components/deposit-goods-info.vue";
-import DepositGoodsList from "@/views/deposit/components/deposit-goods-list.vue";
+import DepositCustomerInfo from "./components/deposit-customer-info.vue";
+import DepositList from "./components/deposit-list.vue";
 
-
-const loading = ref(false);
-const tableHang = ref([]);
-const activeHangon = ref(-1);
-const lodgeFrom = reactive({
-  keyword: "",
-  page: 1,
-  limit: 10,
+const getOne = ref(0);
+const keyWords = ref('');
+const depositOrderList=ref([]);
+const customerInfo = ref({
+  phone:'游客',
+  avatar:'https://multi-store.crmeb.net/uploads/attach/2023/04/20230426/ed8f8cf4cfbd6b46c821b082ce2e4e76.png',
+  nickname:'游客',
+  now_money:0,
+  integral:0
 });
-const currentid = ref("");
-const columns = ref([
-  {
-    title: "选择",
-    key: "chose",
-    width: 60,
-    align: "center",
-    render: (h, params) => {
-      let id = params.row.id;
-      let flag = false;
-      if (currentid.value === id) {
-        flag = true;
-      } else {
-        flag = false;
-      }
-      return h("div", [
-        h(Radio, {
-          props: {
-            value: flag,
-          },
-          on: {
-            "on-change": () => {
-              currentid.value = id;
-              activeHangon.value = params.index;
-              let data = {
-                uid: params.row.uid,
-              };
-              let touristId = params.row.tourist_uid;
-              if (params.row.uid) {
-                userInfoData(data);
-              } else {
-                setUp(touristId);
-              }
-            },
-          },
-        }),
-      ]);
-    },
-  },
-  {
-    title: "用户",
-    slot: "nickname",
-    minWidth: 70,
-  },
-  {
-    title: "订单金额",
-    key: "price",
-    minWidth: 70,
-  },
-  {
-    title: "时间",
-    key: "_add_time",
-    minWidth: 70,
-  },
-  {
-    title: "操作",
-    slot: "action",
-    minWidth: 100,
-    align: "center",
-  },
-]);
 
-const total = ref(0);
-const userInfo = ref({});
-const attr = reactive({
-  productAttr: [],
-  productSelect: {},
-});
-const cartList = ref([]);
-const modal = ref(false);
-const rule = reactive([
-  {
-    type: "input",
-    field: "remarks",
-    title: "备注",
-    props: {
-      type: "textarea",
-      maxlength: 100,
-      "show-word-limit": true,
-    },
-  },
-]);
-
-const clientHeight = ref(0);
-const disabled = ref(false); //阻止属性弹窗多次提交
-const selIndex = ref(0);
-
-const handleChange = (column) => {
-
-};
-
-const userInfoData = (data) => {
-  // 定义 userInfoData 方法
-};
-
-const setUp = (touristId) => {
-  // 定义 setUp 方法
-};
 
 const getDepositOrderList = async () => {
   const {data} = await getHangList();
-  tableHang.value = data.list
+  console.log(data)
 }
 
 const getDepositList = async () => {
   const {data} = await getDataInfo(10);
-  userInfo.value = data.userInfo;
+
   console.log(data)
 }
 getDepositList();
@@ -199,121 +82,58 @@ getDepositOrderList();
 </script>
 
 <style scoped lang="less">
-.goodsCard {
-  flex: 1;
-  height: calc(100vh - 140px);
-  display: flex;
-  flex-wrap: nowrap;
+
+.list-hide {
+  height: calc(100vh - 248px);
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.content-hide {
+  height: calc(100vh - 130px);
 }
 
-.conter {
-  width: 550px;
-  box-shadow: 5px 0 14px 0 rgba(0, 0, 0, 0.04);
+.selected {
+  background: #f3f9ff;
+}
 
-  .cart {
-    position: relative;
+
+.tabs {
+  .bg-gray {
+    background-color: #f2f3f5;
   }
 
-  .pending-user {
-    width: 100%;
-    height: calc(100% - 130px);
-    margin-top: 20px;
-    overflow: hidden;
-    overflow-y: scroll;
+  .none-0:nth-child(1) {
+    border-bottom-right-radius: 18px;
+  }
 
-    .list {
-      padding: 20px 16px;
-      border-bottom: 1px solid #EEEEEE;
-      cursor: pointer;
-    }
+  .none-0:nth-child(2) {
+    border-bottom-left-radius: 18px;
+  }
 
-    .bor {
-      background: #F3F9FF;
-      border: none;
-      border-radius: 6px;
-    }
+  .none-1:nth-child(1) {
+    border-bottom-right-radius: 18px;
+  }
 
-    .item {
-      display: flex;
-      justify-content: space-between;
+  .none-1:nth-child(3) {
+    border-bottom-left-radius: 18px;
+  }
 
-      .avatar {
-        width: 46px;
-        height: 46px;
-        margin-right: 16px;
+  .none-2:nth-child(2) {
+    border-bottom-right-radius: 18px;
+  }
 
-        img {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-        }
-      }
+  .none-2:nth-child(4) {
+    border-bottom-left-radius: 18px;
+  }
 
-      .user {
-        .name {
-          font-weight: bold;
-          font-size: 16px;
-          color: rgba(0, 0, 0, 0.85);
-          margin-bottom: 5px;
-        }
-
-        .order-price {
-          font-size: 14px;
-          font-weight: 400;
-          color: rgba(0, 0, 0, 0.85);
-        }
-
-        .price-num {
-          color: #F5222D;
-        }
-      }
-
-      .right_content {
-        .time {
-          font-size: 14px;
-          font-weight: 400;
-          color: rgba(102, 102, 102, 0.85);
-          margin-bottom: 9px;
-        }
-
-      }
-    }
-
-    .right-btn {
-      display: flex;
-      flex-direction: row-reverse;
-      max-height: 34px;
-      overflow: hidden;
-      transition: max-height 0.3s;
-      font-size: 14px;
-    }
-
-    .element {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s;
-    }
-
-    .btn {
-      width: 58px;
-      height: 34px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      margin-left: 5px;
-      cursor: pointer;
-    }
-
-    .suc {
-      background: #1890FF;
-    }
-
-    .del {
-      background: #F5222D;
-    }
+  .active {
+    /* 选中状态的样式 */
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    background-color: #FFFFFF;
+    font-weight: bold;
   }
 }
+
 
 </style>

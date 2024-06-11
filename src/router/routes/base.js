@@ -14,7 +14,7 @@ export const REDIRECT_MAIN = {
     {
       path: '/redirect/:path',
       name: REDIRECT_ROUTE_NAME,
-      component: () => import('@/views/redirect/index.vue'),
+      component: () => import('@/views/cashier/index.vue'),
       meta: {
         requiresAuth: true,
         hideInMenu: true,

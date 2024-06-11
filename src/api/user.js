@@ -25,3 +25,26 @@ export function getUserInfo() {
 export function getMenuList() {
   return axios.post('/api/user/menu');
 }
+
+
+/**
+ *收银台-添加购物车
+ */
+export function getCustomerList(data) {
+  return axios({
+    url: '/user/get_list',
+    method: 'get',
+    data
+  });
+}
+
+/**
+ *收银台-添加购物车
+ */
+export function getCustomerInfo(data) {
+  return axios({
+    url: '/user/user_Info',
+    method: 'get',
+    data
+  });
+}

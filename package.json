@@ -37,6 +37,7 @@
 		"pinia": "^2.1.7",
 		"query-string": "^9.0.0",
 		"sortablejs": "^1.15.2",
+		"typescript": "^5.4.5",
 		"vue": "^3.4.21",
 		"vue-echarts": "^6.6.9",
 		"vue-i18n": "^9.10.2",
@@ -44,7 +45,7 @@
 	},
 	"devDependencies": {
 		"@arco-plugins/vite-vue": "^1.4.5",
-		"@arco-themes/vue-diamond-web3-pos": "^0.0.2",
+		"@arco-themes/vue-diamond-web3-pos": "^0.0.4",
 		"@commitlint/cli": "^19.2.1",
 		"@commitlint/config-conventional": "^19.1.0",
 		"@vitejs/plugin-vue": "^5.0.4",

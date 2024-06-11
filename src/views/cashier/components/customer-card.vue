@@ -1,37 +1,53 @@
 <script setup>
-import {defineProps, computed} from 'vue';
+import {defineProps, inject} from 'vue';
 
-
+defineProps({
+  currentUser:{
+    type:Object,
+    default:{}
+  }
+})
+const setModalVisibility = inject('setModalVisibility');
+const getType = (P) => {
+  P == 0 ? setModalVisibility('showCustomerModal', true) : null;
+}
 </script>
 
 <template>
-  <div class="customer-card">
-    <div class="picture">
-      <a-avatar :size="45">A</a-avatar>
-    </div>
+  <div class="customer-card flex justify-between items-center">
+    <a-avatar :size="45">A</a-avatar>
     <div class="info">
-      <div class="title">
-        <span class="font-bold lg:text-lg md:text-base sm:text-xs pr-1 overflow-hidden text-ellipsis whitespace-nowrap">蕾遇潮牌</span>
-        <span class="font-extralight text-gray-600 lg:text-sm sm:text-xs overflow-hidden text-ellipsis whitespace-nowrap">手机号码：13168320604</span>
-        <div class="switch">
-          <a-dropdown :popup-max-height="false">
-            <a-button type="text" class="change-cs" size="small">切换会员 <icon-down /></a-button>
-            <template #content>
-              <a-doption>选择会员</a-doption>
-              <a-doption>散客</a-doption>
-            </template>
-          </a-dropdown>
-        </div>
+      <div class="flex justify-between items-center">
+        <span class="font-bold text-base pr-1 overflow-hidden text-ellipsis whitespace-nowrap">{{currentUser.nickname}}</span>
+        <a-dropdown @select="getType" :popup-max-height="false">
+          <a-button type="text" class="change-cs" style="margin-right: -12px;" size="small">切换会员
+            <icon-down/>
+          </a-button>
+          <template #content>
+            <a-doption value="0">选择会员</a-doption>
+            <a-doption value="1">散客</a-doption>
+          </template>
+        </a-dropdown>
       </div>
-      <div class="account">
-        <span class="lg:text-sm sm:text-xs">积分 <b>20</b></span>&nbsp;
-        <span class="lg:text-sm sm:text-xs">余额 <b>20</b></span>
+      <div class="">
+        <span class="text-xs">积分 <b>{{currentUser.integral}}</b></span>&nbsp;
+        <span class="text-xs">余额 <b>{{currentUser.now_money}}</b></span>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="less">
+.start {
+  font-size: 14px;
+  width: 90px;
+}
+
+/* 针对屏幕（平板） */
+@media (max-width: 1024px) {
+
+}
+
 .customer-card {
   display: flex;
   width: 90%;
@@ -43,25 +59,21 @@ import {defineProps, computed} from 'vue';
   border-radius: 12px;
   border: 3px solid #f70;
   flex-shrink: 0;
-  .picture {
-    width: 50px;
-    height: 50px;
-  }
+
   .info {
     flex: 1 1 0;
     padding-left: 10px;
     overflow: hidden;
+
     .title {
       display: flex;
       align-items: center;
     }
+
     .switch {
-      .change-cs{
+      .change-cs {
         color: #ff7700 !important;
       }
-    }
-    .account {
-      padding: 5px 0;
     }
   }
 }

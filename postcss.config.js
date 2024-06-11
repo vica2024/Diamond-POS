@@ -1,5 +1,3 @@
-import postcssPxtorem from 'postcss-pxtorem';
-
 export default {
     plugins: {
         tailwindcss: {},

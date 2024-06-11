@@ -28,7 +28,6 @@
     </a-layout>
   </a-layout>
 </template>
-
 <script setup>
   import { ref, computed, watch, provide, onMounted } from 'vue';
   import { useRouter, useRoute } from 'vue-router';
@@ -151,7 +150,7 @@
   }
 
   .layout-content {
-    height: 94.4vh;
+    height: calc(100vh - 63px);
     border-radius: 20px 0 0 0;
     margin-left: 93px;
     margin-top: 63px;

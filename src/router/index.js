@@ -12,20 +12,12 @@ const router = createRouter({
 	routes: [
 		{
 			path: "/",
-			redirect: "home",
+			redirect: "cashier",
 		},
 		{
 			path: "/login",
 			name: "login",
 			component: () => import("@/views/login/index.vue"),
-			meta: {
-				requiresAuth: false,
-			},
-		},
-		{
-			path: "/home",
-			name: "home",
-			component: () => import("@/views/home/index.vue"),
 			meta: {
 				requiresAuth: false,
 			},
@@ -44,7 +36,7 @@ createRouteGuard(router);
 export default router;
 
 /**
- * 
+ *
  * roles
 配置能访问该页面的角色，如果不匹配，则会被禁止访问该路由页面
 string[]

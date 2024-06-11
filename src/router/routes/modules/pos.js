@@ -18,7 +18,7 @@ export default {
       component: () => import('@/views/cashier/index.vue'),
       meta: {
         locale: 'menu.cashier',
-        icon: 'icon-file',
+        icon: 'icon-gift',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -29,7 +29,7 @@ export default {
       component: () => import('@/views/deposit/index.vue'),
       meta: {
         locale: 'menu.deposit',
-        icon: 'icon-file',
+        icon: 'icon-drive-file',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -40,18 +40,7 @@ export default {
       component: () => import('@/views/order/index.vue'),
       meta: {
         locale: 'menu.order',
-        icon: 'icon-file',
-        requiresAuth: true,
-        roles: ['admin'],
-      },
-    },
-    {
-      path: 'refund',
-      name: 'menu.refund',
-      component: () => import('@/views/refund/index.vue'),
-      meta: {
-        locale: 'menu.refund',
-        icon: 'icon-file',
+        icon: 'icon-bookmark',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -62,7 +51,18 @@ export default {
       component: () => import('@/views/write-off/index.vue'),
       meta: {
         locale: 'menu.write-off',
-        icon: 'icon-file',
+        icon: 'icon-check-square',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
+    {
+      path: 'refund',
+      name: 'menu.refund',
+      component: () => import('@/views/refund/index.vue'),
+      meta: {
+        locale: 'menu.refund',
+        icon: 'icon-rotate-left',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -73,7 +73,7 @@ export default {
       component: () => import('@/views/customer/index.vue'),
       meta: {
         locale: 'menu.user',
-        icon: 'icon-file',
+        icon: 'icon-user-group',
         requiresAuth: true,
         roles: ['admin'],
       },

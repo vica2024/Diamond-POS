@@ -3,11 +3,9 @@
     <div class="left-side">
       <a-space>
         <img alt="logo" src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"/>
-        <a-typography-title v-if="appStore.device === 'desktop'" :style="{ margin: 0, fontSize: '18px',fontWeight:'bold'}" :heading="5">
+        <a-typography-title class="text-blue-50" v-if="appStore.device === 'desktop'" :style="{ margin: 0, fontSize: '18px',fontWeight:'bold'}" :heading="5">
           {{ appStore.projectName }}
         </a-typography-title>
-        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 23px; margin-left: 10px; cursor: pointer" @click="toggleDrawerMenu"
-        />
       </a-space>
     </div>
     <div class="center-side">
@@ -132,8 +130,8 @@
                 <img alt="avatar" :src="avatar"/>
             </a-avatar>
             <div style="flex: 1;">
-              <a-typography-title style="margin: -2px 7px;" :heading="6" class="text-14 color-2"><b>{{ name }}</b></a-typography-title>
-              <a-typography-text class="color-2 text-12">{{ jobName }}</a-typography-text>
+              <a-typography-title style="margin: -2px 7px;" :heading="6" class="text-blue-50"><b>{{ name }}</b></a-typography-title>
+              <a-typography-text class="text-blue-50">{{ jobName }}</a-typography-text>
             </div>
           </div>
           <template #content>
