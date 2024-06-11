@@ -53,7 +53,10 @@ yarn build
 
 
 ## 软件截图
-
-
+<img src="https://s21.ax1x.com/2024/06/11/pkUYRgO.png" alt="diamond POS" />
+<img src="https://s21.ax1x.com/2024/06/11/pkUY5bd.png" alt="diamond POS" />
+<img src="https://s21.ax1x.com/2024/06/11/pkUYTUI.png" alt="diamond POS" />
+<img src="https://s21.ax1x.com/2024/06/11/pkUY75t.png" alt="diamond POS" />
+<img src="https://s21.ax1x.com/2024/06/11/pkUYbPP.png" alt="diamond POS" />
 
 
