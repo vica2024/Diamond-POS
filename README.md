@@ -25,15 +25,15 @@
 
 - 获取代码
 ```
-git clone https://github.com/vica2024/vica-retail-cashier.git
+git clone https://gitee.com/731661902/diamond-pos.git
 ```
 - 安装依赖
 ```
-cd vica-retail-cashier && yarn install 
+cd diamond-pos && yarn install 
 ```
 或者
 ```
-cd vica-retail-cashier && npm install
+cd diamond-pos && npm install
 ```
 - 运行项目
 ```
