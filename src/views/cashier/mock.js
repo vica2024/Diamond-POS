@@ -5137,7 +5137,7 @@ const goodsAttr = {
             "price": "299.00",
             "settle_price": "0.00",
             "integral": 0,
-            "image": "https:\/\/beta-pro.crmeb.net\/uploads\/attach\/2023\/05\/24\/1c06167ea2340769f21b05191afefda2.jpg",
+            "image": "https://pro.crmeb.net/uploads/attach/2022/09/20220922/b637a7a0311faa2bb126744e41017003.png",
             "unique": "bf774c7e",
             "cost": "200.00",
             "bar_code": "",
@@ -5309,7 +5309,7 @@ const goodsAttr = {
         "product_type": 0,
         "relation_id": 21,
         "mer_id": 0,
-        "image": "https:\/\/beta-pro.crmeb.net\/uploads\/attach\/2023\/05\/24\/49fc85682212a7e32ac0b947e8813cbe.jpg",
+        "image": "https://pro.crmeb.net/uploads/attach/2022/09/20220922/b637a7a0311faa2bb126744e41017003.png",
         "recommend_image": "",
         "slider_image": [
             "https:\/\/beta-pro.crmeb.net\/uploads\/attach\/2023\/05\/24\/49fc85682212a7e32ac0b947e8813cbe.jpg",
@@ -5399,7 +5399,7 @@ const goodsAttr = {
         "refusal": "",
         "is_police": 0,
         "is_sold": 0,
-        "image_base": "https:\/\/beta-pro.crmeb.net\/uploads\/attach\/2023\/05\/24\/49fc85682212a7e32ac0b947e8813cbe.jpg",
+        "image_base": "https://pro.crmeb.net/uploads/attach/2022/09/20220922/b637a7a0311faa2bb126744e41017003.png",
         "fsales": 2
     }
 }

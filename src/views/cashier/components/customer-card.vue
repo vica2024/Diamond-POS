@@ -2,9 +2,13 @@
 import {defineProps, inject} from 'vue';
 
 defineProps({
-  currentUser:{
+  customerInfo:{
     type:Object,
-    default:{}
+    default:{
+      nickname:'--',
+      now_money:0,
+      integral:0
+    }
   }
 })
 const setModalVisibility = inject('setModalVisibility');
@@ -18,7 +22,7 @@ const getType = (P) => {
     <a-avatar :size="45">A</a-avatar>
     <div class="info">
       <div class="flex justify-between items-center">
-        <span class="font-bold text-base pr-1 overflow-hidden text-ellipsis whitespace-nowrap">{{currentUser.nickname}}</span>
+        <span class="font-bold text-base pr-1 overflow-hidden text-ellipsis whitespace-nowrap">{{customerInfo.nickname}}</span>
         <a-dropdown @select="getType" :popup-max-height="false">
           <a-button type="text" class="change-cs" style="margin-right: -12px;" size="small">切换会员
             <icon-down/>
@@ -30,31 +34,21 @@ const getType = (P) => {
         </a-dropdown>
       </div>
       <div class="">
-        <span class="text-xs">积分 <b>{{currentUser.integral}}</b></span>&nbsp;
-        <span class="text-xs">余额 <b>{{currentUser.now_money}}</b></span>
+        <span class="text-xs">积分 <b>{{customerInfo.integral}}</b></span>&nbsp;
+        <span class="text-xs">余额 <b>{{customerInfo.now_money}}</b></span>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="less">
-.start {
-  font-size: 14px;
-  width: 90px;
-}
-
-/* 针对屏幕（平板） */
-@media (max-width: 1024px) {
-
-}
 
 .customer-card {
   display: flex;
-  width: 90%;
   align-items: center;
   flex-wrap: nowrap;
   overflow: hidden;
-  margin: 20px auto 15px;
+  margin: 20px;
   padding: 25px 15px;
   border-radius: 12px;
   border: 3px solid #f70;

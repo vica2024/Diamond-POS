@@ -1,216 +1,117 @@
-<template>
-  <div>
-    <a-modal v-model:visible="modalsState.showGoodsAttrsModal" title="商品规格" :footer="false" unmountOnClose
-             width="600">
-      <div class="productAttr">
-        <div>
-          <div class="header">
-            <div class="pictrue">
-              <img alt="" :src="props.product.info.image"/>
-            </div>
-            <div class='text'>
-              <div class="name line1">{{ props.product.info.store_name }}</div>
-              <div class="info">库存 {{ props.product.info.stock }}</div>
-              <div class="money">¥<span class="num">{{ props.product.info.price }}</span></div>
-            </div>
-          </div>
-          <div class="attr">
-            <div class="list" v-for="(item, index) in product.attrs" :key="index">
-              <div class="title">{{ item.attr_name }}</div>
-              <div class="listn acea-row">
-                <a-row :gutter="12">
-                  <a-col v-for="(attrName,idx) in item.attr_values" style="margin-top: 10px;"
-                         :xs="{ span: 24, offset: 0 }" :md="{ span: 12, offset: 0 }" :lg="{ span: 8, offset: 0 }">
-                    <a-button shape="round" @click="tapAttr(index,idx)" size="small"
-                              :type="`${item.attr_value[idx].check?'primary':'outline'}`">
-                      {{ attrName }}
-                    </a-button>
-                  </a-col>
-                </a-row>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a-button shape="round" type="primary" :disabled="disabled" long @click="gotCat">
-          {{ isSkill ? '立即购买' : '确定' }}
-        </a-button>
-      </div>
-    </a-modal>
-  </div>
-</template>
-
 <script setup>
-import {defineProps, inject, ref, watch} from 'vue';
+import {defineProps, inject, onMounted, reactive, nextTick} from 'vue';
 
 const props = defineProps({
-  product: {
+  productAttrs: {
     type: Object,
-    default: {
-      attrs: [],
-      sizes: [],
-      info: {}
-    }
+    default: {}
   },
   isSkill: {
     type: Boolean,
     default: false
+  },
+  modalTitle: {
+    type: String,
+    default: '商品规格'
+  },
+  modalWidth: {
+    type: String,
+    default: '700'
   }
 });
-const attrs = [];
-const disabled = ref(false);
-const product_attr=ref({
-  cartNum: 0,
-  new: 0,
-  productId: 0,
-  seckillId: 0,
-  staff_id: 0,
-  uniqueId:'',
-});
+
 const modalsState = inject('modalsState');
 const setModalVisibility = inject('setModalVisibility');
 const setGoodsToCart = inject('setGoodsToCart');
-
-watch(() => props.product, () => {
-  props.product.attrs[0].attr_value[0].check = true;
-  props.product.attrs[1].attr_value[0].check = true;
-  attrs[0] = props.product.attrs[0].attr_value[0].attr
-  attrs[1] = props.product.attrs[1].attr_value[0].attr
-  chooseGoods();
+const pickUpAttr = reactive({
+  goodsId: 0,
+  skuIds: [],
+  skuName: null,
+  stock: 0,
+  skuPrice: 0,
+  image: null,
 });
 
-const gotCat = () => {
-  setModalVisibility('showGoodsAttrsModal', false);
-  chooseGoods();
-  setGoodsToCart(product_attr.value)
-}
+onMounted(async () => {
+  await nextTick();
+  //默认选择首个sku
+  await setSku(0, 0)
+  await setSku(1, 0)
 
-const chooseGoods=()=>{
-  const key_name = attrs.length > 1 ? attrs.join(',') : attrs[0];
-  console.log(key_name)
-  product_attr.value.uniqueId=props.product.sizes[key_name].unique;
-  product_attr.value.productId=props.product.sizes[key_name].product_id;
-  product_attr.value.seckillId=props.product.sizes[key_name].seckillId;
-}
-const tapAttr = (k1, k2) => {
-  const attrByChiose = props.product.attrs[k1];
-  attrByChiose.attr_value.forEach((item) => {
-    item.check = false;
-  })
-  attrByChiose.attr_value[k2].check = attrByChiose.attr_value[k2].check ? false : true;
-  attrByChiose.attr_value.forEach((item) => {
-    item.check ? attrs[k1] = item.attr : null;
-  });
-  const key_name = attrs.length > 1 ? attrs.join(',') : attrs[0];
-  for (const key in props.product.sizes) {
-    if (props.product.sizes[key_name]) {
-      props.product.info.image = props.product.sizes[key_name].image;
-      props.product.info.stock = props.product.sizes[key_name].stock;
-      props.product.info.price = props.product.sizes[key_name].price;
-      chooseGoods();
+});
+
+//选择一个商品sku
+const setSku = async (k, k1) => {
+  if (props.productAttrs && props.productAttrs.attrs) {
+    const sku = props.productAttrs.attrs;
+    //重置sku状态
+    for (const i in sku[k].attr_value) {
+      sku[k].attr_value[i].check = false;
     }
-
+    pickUpAttr.goodsId = sku[k].product_id;
+    pickUpAttr.skuIds[k] = sku[k].attr_value[k1].attr
+    sku[k].attr_value[k1].check = true;
+    if (pickUpAttr.skuIds.length === props.productAttrs.attrs.length) {
+      const keyName = pickUpAttr.skuIds.join(',');
+      const {suk, stock, price, image} = props.productAttrs.productValue[keyName];
+      pickUpAttr.skuName = suk;
+      pickUpAttr.stock = stock;
+      pickUpAttr.price = price;
+      pickUpAttr.image = image;
+    }
   }
 }
+
+/**
+ * 完成当前商品属性选择
+ */
+const donePickUp = () => {
+  //关闭商品属性窗口
+  setModalVisibility('showGoodsAttrsModal', false);
+  //调用父级组件完成商品属性选择
+  setGoodsToCart(pickUpAttr)
+
+}
+
 </script>
+
+<template>
+  <a-modal v-model:visible="modalsState.showGoodsAttrsModal" :title="modalTitle" :footer="false" unmountOnClose
+           :width="modalWidth">
+    <div class="container">
+      <div class="flex items-center">
+        <!-- Product Image -->
+        <div class="w-1/4 bg-gray-300 rounded-md">
+          <img :src="pickUpAttr.image" alt="Product Image" class="w-full h-auto rounded-lg">
+        </div>
+        <!-- Product Details -->
+        <div class="w-3/4 pl-4">
+          <h2 class="text-xl font-bold mb-2">{{ productAttrs.goodsName }}</h2>
+          <p class="text-gray-700 mb-1">SKU: {{ pickUpAttr.skuName }}</p>
+          <p class="text-sm mb-1">库存: {{ pickUpAttr.stock }}</p>
+          <p class="text-green-500 text-lg font-semibold">${{ pickUpAttr.price }}</p>
+        </div>
+      </div>
+      <div class="" v-for="(attr,k1) in productAttrs.attrs">
+        <h3 class="text-base font-bold tex rounded">{{ attr.attr_name }}</h3>
+        <div class="pt-5 pb-5 pl-5">
+          <a-tag size="large"
+                 :class="['mr-3 mb-3 cursor-pointer rounded-md hover:bg-blue-600 hover:text-blue-50',{'bg-blue-600 text-blue-50':value.check}]"
+                 v-for="(value,k2) in attr.attr_value" @click="setSku(k1,k2)">
+            {{ value.attr }}
+          </a-tag>
+
+        </div>
+      </div>
+      <div class="pt-2">
+        <a-button type="primary" shape="round" long @click="donePickUp"><b>确认</b></a-button>
+      </div>
+    </div>
+  </a-modal>
+</template>
+
 
 <style scoped lang="less">
 
-.productAttr {
-  .header {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-  }
-
-  .pictrue {
-    width: 116px;
-    height: 116px;
-    margin-right: 20px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-    }
-  }
-
-  .text {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .bnt {
-    width: 100%;
-    height: 36px;
-    background: #1890FF;
-    font-size: 12px;
-    color: #fff;
-    border-radius: 4px;
-    margin: 20px auto 0;
-    cursor: pointer;
-    border: none;
-  }
-
-  .attr {
-    height: 300px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-
-  }
-
-  .list {
-    .title {
-      color: rgba(0, 0, 0, 0.85);
-      font-size: 16px;
-      font-weight: bold;
-      margin-top: 14px;
-    }
-
-    .listn {
-      .item {
-        min-width: 158px;
-        line-height: 20px;
-        background: #F5F5F5;
-        border-radius: 6px;
-        color: #666666;
-        font-size: 14px;
-        margin-top: 10px;
-        margin-right: 10px;
-        cursor: pointer;
-        padding: 10px 6px;
-
-        &.on {
-          background: #1890FF;
-          color: #fff;
-        }
-      }
-    }
-  }
-
-  .name {
-    color: #000;
-    font-size: 18px;
-    font-weight: 400;
-  }
-
-  .info {
-    font-size: 13px;
-    color: #999999;
-    margin: 8px 0 6px 0;
-  }
-
-  .money {
-    font-size: 18px;
-    color: #F5222D;
-    width: 100%;
-    font-weight: bold;
-
-    .num {
-      font-size: 21px;
-    }
-  }
-}
 
 </style>
