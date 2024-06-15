@@ -5,13 +5,16 @@ import locale404 from "@/views/exception/404/locale/en-US";
 import locale500 from "@/views/exception/500/locale/en-US";
 import localeSettings from "./en-US/settings";
 
+//for cashier language
+import localeCashier from "@/views/cashier/locale/en-US.js";
+
 export default {
 	"menu.cashier": "Sales",
 	"menu.refund": "Refund",
-	"menu.deposit": "Dep",
-	"menu.write-off": "Redeem",
+	"menu.deposit": "Dep.",
+	"menu.redeem-coupon": "CR",
 	"menu.order": "Order",
-	"menu.user": "User",
+	"menu.customer": "CRM",
 	"menu.dashboard": "Dashboard",
 	"menu.server.dashboard": "Dashboard-Server",
 	"menu.server.workplace": "Workplace-Server",
@@ -50,4 +53,5 @@ export default {
 	...locale403,
 	...locale404,
 	...locale500,
+	...localeCashier,
 };

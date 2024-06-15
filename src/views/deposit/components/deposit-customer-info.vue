@@ -25,7 +25,6 @@ const props = defineProps({
           </div>
           <div class="money pt-2">
             <div>
-              <span class="mr-2">{{ customerInfo.phone }}</span>
               余额
               <span class="num text-base mr-2">{{ customerInfo.now_money }}</span>
             </div>

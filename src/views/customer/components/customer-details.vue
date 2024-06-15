@@ -16,7 +16,7 @@ const tabs_title = [{
 }, {
   label: '顾客足迹',
 }, {
-  label: '推广人变更',
+  label: '导购员变更',
 }];
 </script>
 

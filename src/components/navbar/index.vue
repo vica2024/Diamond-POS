@@ -125,13 +125,13 @@
       </li>
       <li>
         <a-dropdown trigger="click">
-          <div style="display: flex;justify-content: space-between;align-items: center;">
-            <a-avatar :size="30" shape="square" :style="{ marginRight: '8px', cursor: 'pointer' }">
-                <img alt="avatar" :src="avatar"/>
+          <div class="flex items-center justify-center cursor-pointer">
+            <a-avatar :size="35" shape="square" :style="{ marginRight: '8px', cursor: 'pointer' }">
+                <img alt="avatar" class="rotate-180" :src="avatar"/>
             </a-avatar>
-            <div style="flex: 1;">
-              <a-typography-title style="margin: -2px 7px;" :heading="6" class="text-blue-50"><b>{{ name }}</b></a-typography-title>
-              <a-typography-text class="text-blue-50">{{ jobName }}</a-typography-text>
+            <div class="text-center cursor-pointer">
+              <span class="flex text-blue-50 m-0 text-xs font-bold">{{ name }}</span>
+              <span class="text-blue-50 text-xs">{{ jobName }}</span>
             </div>
           </div>
           <template #content>

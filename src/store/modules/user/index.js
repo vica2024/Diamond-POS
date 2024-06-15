@@ -64,7 +64,9 @@ const useUserStore = defineStore('user', {
     async login(loginForm) {
       try {
         const res = await userLogin(loginForm);
+        console.log(res)
         setToken(res.data.token);
+        window.localStorage.setItem('userRole', 'admin');
       } catch (err) {
         clearToken();
         throw err;

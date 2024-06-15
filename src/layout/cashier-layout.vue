@@ -22,7 +22,6 @@
           <a-layout-content class="layout-main">
             <PageLayout />
           </a-layout-content>
-          <Footer v-if="footer" class="layout-footer"/>
         </a-layout>
       </a-layout>
     </a-layout>
@@ -150,10 +149,10 @@
   }
 
   .layout-content {
-    height: calc(100vh - 63px);
+    height: calc(100vh - 65px);
     border-radius: 20px 0 0 0;
-    margin-left: 93px;
-    margin-top: 63px;
+    margin-left: 85px;
+    margin-top: 64px;
     z-index: 99;
     overflow: hidden;
     background-color: var(--color-fill-2);

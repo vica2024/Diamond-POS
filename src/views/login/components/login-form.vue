@@ -52,12 +52,18 @@
           </a-checkbox>
           <a-link>{{ $t('login.form.forgetPassword') }}</a-link>
         </div>
-        <a-button type="primary" html-type="submit" long :loading="loading">
+        <a-button type="primary" shape="round" html-type="submit" long :loading="loading">
           {{ $t('login.form.login') }}
         </a-button>
-        <a-button type="text" long class="login-form-register-btn">
+        <a-button type="text" shape="round" long class="login-form-register-btn">
           {{ $t('login.form.register') }}
         </a-button>
+        <div class="flex w-3/4 pt-2 mx-auto items-stretch justify-around">
+          <a-avatar class="other-login wechat"><icon-wechat /></a-avatar>
+          <a-avatar class="other-login alipay"><icon-alipay-circle /></a-avatar>
+          <a-avatar class="other-login qq"><icon-qq /></a-avatar>
+          <a-avatar class="other-login weibo"><icon-weibo /></a-avatar>
+        </div>
       </a-space>
     </a-form>
   </div>
@@ -83,12 +89,13 @@
 
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
-    username: 'admin', // 演示默认值
-    password: 'admin', // demo default value
+    username: 'cn001', // 演示默认值
+    password: '123456', // demo default value
   });
   const userInfo = reactive({
     username: loginConfig.value.username,
     password: loginConfig.value.password,
+    imgcode:888,
   });
 
   const handleSubmit = async ({
@@ -100,6 +107,7 @@
       setLoading(true);
       try {
         await userStore.login(values);
+
         const { redirect, ...othersQuery } = router.currentRoute.value.query;
         router.push({
           name: redirect || 'Workplace',

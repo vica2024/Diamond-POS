@@ -34,7 +34,11 @@ const data = [{
     label: '性别',
     value: '男',
     span: 3,
-  }, {
+  },  {
+    label: '颜色偏好',
+    value: '红色',
+    span: 3,
+  },{
     label: '国家',
     value: 'China',
     span: 3,

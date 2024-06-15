@@ -12,10 +12,14 @@ import axios from 'axios';
 // }
 
 /**
- *收银台-获取收银台商品信息
+ *收银台-获取收银台商品 list.
  */
 export function cashierProduct(data) {
-    return axios.get('/api/product/get_list');
+    return axios({
+        url: `product/get_list`,
+        method: 'get',
+        params: data
+    });
 }
 
 /**
@@ -34,6 +38,25 @@ export function cashierCate() {
 export function cashierProductAttr() {
     return axios({
         url: 'product/get_info',
+        method: 'get'
+    });
+}
+
+/**
+ *收银台-商品详情
+ */
+export function cashierDetail(id, uid) {
+    return axios({
+        url: `product/get_info/${id}/${uid}`,
+        method: 'get'
+    });
+}
+/**
+ *收银台-秒杀商品规格
+ */
+export function cashierGetAttr(id, uid) {
+    return axios({
+        url: `product/get_attr/${id}/${uid}`,
         method: 'get'
     });
 }

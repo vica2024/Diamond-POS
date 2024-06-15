@@ -1,41 +1,39 @@
 <script setup>
-import {defineProps, inject} from 'vue';
-
+import {defineProps, inject, ref} from 'vue';
+import {useI18n} from "vue-i18n";
+const { t } = useI18n();
+const container = ref(null);
 defineProps({
-  customerInfo:{
-    type:Object,
-    default:{
-      nickname:'--',
-      now_money:0,
-      integral:0
+  customerInfo: {
+    type: Object,
+    default: {
+      nickname: '--',
+      now_money: 0,
+      integral: 0
     }
   }
 })
 const setModalVisibility = inject('setModalVisibility');
-const getType = (P) => {
-  P == 0 ? setModalVisibility('showCustomerModal', true) : null;
-}
+
 </script>
 
 <template>
   <div class="customer-card flex justify-between items-center">
-    <a-avatar :size="45">A</a-avatar>
+    <a-avatar :size="45">
+      <IconUser />
+    </a-avatar>
     <div class="info">
       <div class="flex justify-between items-center">
-        <span class="font-bold text-base pr-1 overflow-hidden text-ellipsis whitespace-nowrap">{{customerInfo.nickname}}</span>
-        <a-dropdown @select="getType" :popup-max-height="false">
-          <a-button type="text" class="change-cs" style="margin-right: -12px;" size="small">切换会员
-            <icon-down/>
-          </a-button>
-          <template #content>
-            <a-doption value="0">选择会员</a-doption>
-            <a-doption value="1">散客</a-doption>
-          </template>
-        </a-dropdown>
+        <span
+            class="font-bold text-base pr-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ customerInfo.nickname }}</span>
+        <span class="cursor-pointer text-orange-600 hover:text-orange-300"
+              @click="setModalVisibility('showCustomerModal', true)"> {{ t('switchCustomer') }}
+          <icon-down/>
+        </span>
       </div>
       <div class="">
-        <span class="text-xs">积分 <b>{{customerInfo.integral}}</b></span>&nbsp;
-        <span class="text-xs">余额 <b>{{customerInfo.now_money}}</b></span>
+        <span class="text-xs"> {{ t('points') }}: <b class="text-sm">{{ customerInfo.integral }}</b></span>&nbsp;
+        <span class="text-xs"> {{ t('balance') }}: <b class="text-sm">{{ customerInfo.now_money }}</b></span>
       </div>
     </div>
   </div>

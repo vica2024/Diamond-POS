@@ -152,15 +152,16 @@ export default {
     justify-content: center;
     align-items: center;
     line-height: 13px;
-    width: 6.3vh;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    border-radius: 10px;
+    width: 66px;
+    padding-top: 5px;
+    padding-bottom: 10px;
     margin-bottom: 15px;
     span:first-child{
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 5px;
+      margin-bottom: 3px;
       padding-left: 18px;
       svg{
         font-size: 28px;
@@ -171,7 +172,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 16px;
+      font-size: 13px;
     }
   }
 }

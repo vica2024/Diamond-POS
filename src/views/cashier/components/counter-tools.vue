@@ -1,21 +1,26 @@
 <script setup>
+import {useI18n} from "vue-i18n";
+import {inject} from "vue";
+
+const modalsState = inject('modalsState');
+const {t} = useI18n();
 
 </script>
 
 <template>
-<div class="tools">
-  <a-button type="outline" shape="round" long>挂单</a-button>
-  <a-button type="outline" shape="round" disabled long>充值</a-button>
-  <a-button type="outline" shape="round" long>积分</a-button>
-  <a-button type="outline" shape="round" long>改价</a-button>
-  <a-button type="outline" shape="round" long>备注</a-button>
+<div class="tools w-full">
+  <a-button type="outline" shape="round" long>{{ t('hangOrder') }}</a-button>
+  <a-button type="outline" shape="round" @click="modalsState.showRecharge=true" long>{{ t('recharge') }}</a-button>
+  <a-button type="outline" shape="round" disabled long>{{ t('points') }}</a-button>
+  <a-button type="outline" shape="round" disabled long>{{ t('eCoupon') }}</a-button>
+  <a-button type="outline" shape="round" @click="modalsState.showRecharge=true" disabled long>{{ t('changePrice') }}</a-button>
+  <a-button type="outline" shape="round" @click="modalsState.showMark=true" long>{{ t('remark') }}</a-button>
 </div>
 </template>
 
 <style scoped lang="less">
 .tools{
   text-align: center;
-  padding:20px 15px;
   button{
     margin-bottom: 30px;
   }

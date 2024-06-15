@@ -26,7 +26,7 @@ axios.interceptors.request.use(
       if (!config.headers) {
         config.headers = {};
       }
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers['Authori-zation'] = `Bearer ${token}`;
     }
     return config;
   },
@@ -40,16 +40,13 @@ axios.interceptors.response.use(
   (response) => {
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    if (res.code !== 200) {
       Message.error({
         content: res.msg || 'Error',
         duration: 5 * 1000,
       });
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (
-        [50008, 50012, 50014].includes(res.code) &&
-        response.config.url !== '/api/user/info'
-      ) {
+      if ([508, 512, 514].includes(res.code) && response.config.url !== '/api/user/info') {
         Modal.error({
           title: 'Confirm logout',
           content:

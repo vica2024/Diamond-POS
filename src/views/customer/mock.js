@@ -2,138 +2,9 @@ import Mock from 'mockjs';
 import setupMock, { successResponseWrap } from '@/utils/setup-mock';
 
 const depositList =  {
-  "count": 1487,
+  "count": 9,
   "list": [
-    {
-      "tourist_uid": "1632",
-      "add_time": 1717684202,
-      "cart_id": "35051",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "35051",
-      "_add_time": "2024.06.06 22:30:02",
-      "price": 100
-    },
-    {
-      "tourist_uid": "349",
-      "add_time": 1717676790,
-      "cart_id": "35047",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "35047",
-      "_add_time": "2024.06.06 20:26:30",
-      "price": 19
-    },
-    {
-      "tourist_uid": "1115",
-      "add_time": 1717661349,
-      "cart_id": "35031",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "35031",
-      "_add_time": "2024.06.06 16:09:09",
-      "price": 90
-    },
-    {
-      "tourist_uid": "2509",
-      "add_time": 1717655878,
-      "cart_id": "35000,35001",
-      "store_id": 10,
-      "staff_id": 255,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "35000,35001",
-      "_add_time": "2024.06.06 14:37:58",
-      "price": 40.1
-    },
-    {
-      "tourist_uid": "4606",
-      "add_time": 1717655281,
-      "cart_id": "34990,34992,34993",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "34990,34992,34993",
-      "_add_time": "2024.06.06 14:28:01",
-      "price": 179
-    },
-    {
-      "tourist_uid": "1930",
-      "add_time": 1717646387,
-      "cart_id": "34986",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "34986",
-      "_add_time": "2024.06.06 11:59:47",
-      "price": 118
-    },
-    {
-      "tourist_uid": "6814",
-      "add_time": 1717645639,
-      "cart_id": "34985",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "34985",
-      "_add_time": "2024.06.06 11:47:19",
-      "price": 0.1
-    },
-    {
-      "tourist_uid": "1717633047280",
-      "add_time": 1717633571,
-      "cart_id": "34968,34969",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "34968,34969",
-      "_add_time": "2024.06.06 08:26:11",
-      "price": 100.1
-    },
-    {
-      "tourist_uid": "7574",
-      "add_time": 1717619977,
-      "cart_id": "34960",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "34960",
-      "_add_time": "2024.06.06 04:39:37",
-      "price": 100
-    },
-    {
-      "tourist_uid": "9436",
-      "add_time": 1717600744,
-      "cart_id": "34954,34955",
-      "store_id": 10,
-      "staff_id": 4,
-      "uid": 0,
-      "nickname": null,
-      "avatar": null,
-      "id": "34954,34955",
-      "_add_time": "2024.06.05 23:19:04",
-      "price": 20.3
-    }
+
   ]
 };
 
@@ -415,11 +286,11 @@ const customer_info = {
 setupMock({
   setup() {
     // Quality Inspection
-    Mock.mock(new RegExp('/order/get_hang_list'), () => {
+    Mock.mock(new RegExp('/'), () => {
       return successResponseWrap(depositList);
     });
 
-    Mock.mock(new RegExp('/order/info'), () => {
+    Mock.mock(new RegExp(''), () => {
       return successResponseWrap(customer_info);
     });
   },

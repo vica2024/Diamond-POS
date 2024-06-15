@@ -4,16 +4,18 @@ import locale403 from "@/views/exception/403/locale/zh-CN";
 import locale404 from "@/views/exception/404/locale/zh-CN";
 import locale500 from "@/views/exception/500/locale/zh-CN";
 
-
 import localeSettings from "./zh-CN/settings";
+
+//for cashier language
+import localeCashier from "@/views/cashier/locale/zh-CN.js";
 
 export default {
 	"menu.cashier": "销售",
 	"menu.refund": "退货",
-	"menu.deposit": "定金",
-	"menu.write-off": "核销",
+	"menu.deposit": "订金",
+	"menu.redeem-coupon": "核销",
 	"menu.order": "订单",
-	"menu.user": "用户",
+	"menu.customer": "顾客",
 	"menu.dashboard": "仪表盘",
 	"menu.server.dashboard": "仪表盘-服务端",
 	"menu.server.workplace": "工作台-服务端",
@@ -52,4 +54,5 @@ export default {
 	...locale403,
 	...locale404,
 	...locale500,
+	...localeCashier,
 };

@@ -45,7 +45,7 @@
 	},
 	"devDependencies": {
 		"@arco-plugins/vite-vue": "^1.4.5",
-		"@arco-themes/vue-diamond-web3-pos": "^0.0.4",
+		"@arco-themes/vue-diamond-web3-pos": "^0.0.5",
 		"@commitlint/cli": "^19.2.1",
 		"@commitlint/config-conventional": "^19.1.0",
 		"@vitejs/plugin-vue": "^5.0.4",

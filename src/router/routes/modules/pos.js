@@ -46,11 +46,11 @@ export default {
       },
     },
     {
-      path: 'write-off',
-      name: 'menu.write-off',
+      path: 'redeem-coupon',
+      name: 'menu.redeem-coupon',
       component: () => import('@/views/write-off/index.vue'),
       meta: {
-        locale: 'menu.write-off',
+        locale: 'menu.redeem-coupon',
         icon: 'icon-check-square',
         requiresAuth: true,
         roles: ['admin'],
@@ -69,10 +69,10 @@ export default {
     },
     {
       path: '/customer',
-      name: 'menu.user',
+      name: 'menu.customer',
       component: () => import('@/views/customer/index.vue'),
       meta: {
-        locale: 'menu.user',
+        locale: 'menu.customer',
         icon: 'icon-user-group',
         requiresAuth: true,
         roles: ['admin'],

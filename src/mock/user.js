@@ -16,11 +16,11 @@ setupMock({
       if (isLogin()) {
         const role = window.localStorage.getItem('userRole') || 'admin';
         return successResponseWrap({
-          name: '卓尉家',
-          avatar:'https://avatars.githubusercontent.com/u/167049259?v=4',
+          name: 'Monlelulu',
+          avatar:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWbX6Bq2NLUuJi4kHivv4OWDv9TmTPxIBRLw&s',
           email: 'zhuovica@gmail.com',
           job: 'frontend',
-          jobName: '前端艺术家',
+          jobName: 'Cashier',
           organization: 'Frontend',
           organizationName: '前端',
           location: 'beijing',
@@ -38,7 +38,7 @@ setupMock({
     });
 
     // 登录
-    Mock.mock(new RegExp('/api/user/login'), (params) => {
+    Mock.mock(new RegExp('/ssslogin'), (params) => {
       const { username, password } = JSON.parse(params.body);
       if (!username) {
         return failResponseWrap(null, '用户名不能为空', 50000);
@@ -46,7 +46,7 @@ setupMock({
       if (!password) {
         return failResponseWrap(null, '密码不能为空', 50000);
       }
-      if (username === 'admin' && password === 'admin') {
+      if (username === 'cn001' && password === '123456') {
         window.localStorage.setItem('userRole', 'admin');
         return successResponseWrap({
           token: '12345',
