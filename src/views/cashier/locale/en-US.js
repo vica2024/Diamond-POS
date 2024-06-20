@@ -3,12 +3,15 @@ export default {
   items: "items",
   clearCart: "Clear",
   details: "Details",
+  goodsAttr:"Product Detail",
   clearCartConfirm: "Are you sure you want to clear the cart?",
+  deleteCartConfirm: "Are you sure you want to remove the item?",
   yes: "Yes",
   no: "No",
   noItems: "Empty, go add some~",
   total: "Total",
   checkout: "Checkout",
+  paymentType:'Payment Methods',
   hangOrder: "Hang Ord.",
   changePrice: "Chg. Price",
   recharge:"Recharge",
@@ -36,4 +39,41 @@ export default {
   couponAmount: 'Coupon Amount: ￥{amount}',
   pointsDeduction: 'Points Deduction: ￥{points}',
   limitedTimeDiscount: 'Limited Time Discount: ￥{discount}',
+
+  modalSalespersonTitle: 'Staff List',
+  searchSalespersonPlaceholder: 'Please enter ID or phone number',
+  phone: 'Phone Number',
+  loading: 'Loading...',
+
+  paymentScanPlaceholder: 'Please click the input box to focus on scanning or entering the code',
+  weChatAlipay: 'WeChat/Alipay',
+  creditCard: 'Credit Card',
+  cash: 'Cash',
+  balancePayment: 'Balance Payment',
+  cryptocurrency: 'Cryptocurrency',
+  cancelPayment: 'Cancel Payment',
+  scanToPay: {
+    title: 'Scan to Pay',
+    steps: [
+      'Customer scans the QR code with their phone camera',
+      'Automatically detects if the cryptocurrency app is installed',
+      'Confirm order information and payment amount in the mobile app'
+    ]
+  },
+  sendEmail: {
+    title: 'Send Email',
+    success: 'Email Sent Successfully',
+    subtitle: 'The cryptocurrency email has been sent to zhu****ca@gmail.com',
+    resend: 'Resend'
+  },
+
+  //for customer modal
+  searchCustomer:"Customer Center",
+  searchCustomerPlaceholder: "Please enter Customer's ID or Phone Number or E-mail  Name ",
+  createCustomer:"Create",
+  placeholderPrefix:"please enter ",
+  fullName:"Customer's Name",
+  phoneNumber:'Phone Number',
+  email:'Email',
+  memberId:'Member ID',
 };

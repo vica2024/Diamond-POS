@@ -11,8 +11,9 @@
                 }}</span>
               <a-popconfirm :content="t('clearCartConfirm')" type="warning" @ok="clear_cart" :okText="t('yes')"
                             :cancelText="t('no')">
-                <span class="cursor-pointer mr-5 pb-5 hover:text-blue-400 active:text-blue-400">
-                  <icon-delete size="16"/> {{ t('clearCart') }}
+                <span
+                    class="flex items-center cursor-pointer mr-5 pb-5 text-gray-500 hover:text-blue-400 active:text-blue-400">
+                  <icon-delete size="16"/> <span class="text-xs">{{ t('clearCart') }}</span>
                 </span>
               </a-popconfirm>
             </div>
@@ -21,32 +22,33 @@
             <div class="pr-5 pl-5 hover:bg-cyan-50" v-for="(item, index) in cartList" :key="index">
               <div class="flex pt-4 pb-4">
                 <div class="w-1/5 overflow-hidden">
-                  <img alt="" :src="item.productInfo.image"/>
+                  <img alt="" :src="item.cart[0].productInfo.image"/>
                 </div>
                 <div class="w-4/5 flex-col justify-between pl-2">
                   <div class="h-1/3 flex flex-none justify-between">
                     <div class="pr-2 overflow-hidden text-ellipsis whitespace-nowrap">
-                      {{ item.productInfo.store_info }}
+                      {{ item.cart[0].productInfo.store_info }}
                     </div>
-                    <a-popconfirm :content="t('clearCartConfirm')" type="warning" @ok="del_goods(item)"
+                    <a-popconfirm :content="t('deleteCartConfirm')" type="warning" @ok="del_goods(item.cart[0])"
                                   :okText="t('yes')" :cancelText="t('no')">
-                      <span class="flex whitespace-nowrap cursor-pointer text-blue-300 active:text-blue-400">
+                      <span class="flex whitespace-nowrap cursor-pointer text-blue-300 hover:text-blue-600">
                         <icon-close size="13"/>
                       </span>
                     </a-popconfirm>
                   </div>
                   <div class="h-1/3 w-1/3 cursor-pointer lex-grow flex items-center text-gray-400 text-xs"
                        @click="modalsState.showGoodsAttrsModal=true">
-                    {{ item.productInfo.attrInfo.suk }}
+                    {{ item.cart[0].productInfo.attrInfo.suk }}
                     <icon-down/>
                   </div>
                   <div class="h-1/3 flex-none flex place-items-end justify-between">
                     <span class="text-rose-600">
                       <span class="text-xs">{{ t('price') }}</span>
-                      <b class="text-base">{{ item.productInfo.price }}</b>
+                      <b class="text-base">{{ item.cart[0].productInfo.price }}</b>
                     </span>
                     <div class="flex items-center justify-center cart-item">
-                      <a-input-number v-model="item.cart_num" @change="fetchChangeCart(item)" size="mini" mode="button"
+                      <a-input-number v-model="item.cart[0].cart_num" @change="fetchChangeCart(item.cart[0])"
+                                      size="mini" mode="button"
                                       :min="1"
                                       class="bg-white text-center" style="width:80px;border-radius:14px;"/>
                     </div>
@@ -94,16 +96,32 @@
           </div>
         </div>
         <div class="pt-5 pl-3 pr-3 border-l">
-          <counter-tools/>
+          <counter-tools :stages="toolsState"/>
         </div>
       </div>
       <div class="w-1/2 h-full ml-5">
         <div class="w-full bg-white p-5 mb-5 rounded-2xl">
-          <a-input-group class="w-full">
-            <a-select size="large" :options="[t('all'), t('name'), t('id')]" :style="{width:'140px'}"
-                      :placeholder="t('all')"/>
-            <a-input-search size="large" :placeholder="t('searchPlaceholder')" search-button/>
-          </a-input-group>
+          <div class="flex overflow-hidden w-full">
+            <a-auto-complete v-model="searchText"
+                             :data="highlightedOptions"
+                             @search="handleSearch"
+                             :allow-clear="true"
+                             :strict="true"
+                             :placeholder="t('searchPlaceholder')"
+                             class="bg-white rounded-tl-3xl rounded-bl-3xl border-tlb-primary pt-1 pb-1">
+              <template #option="{ data }">
+                <div class="flex items-center text-xs pt-3 pb-3">
+                  <span class="text-gray-500">手机号:&nbsp; </span>
+                  <highlight-words :search-words="[searchText]" :text-to-highlight="data.raw.label"
+                                   highlight-class="text-sm"/>
+                  <span class="ml-2 text-gray-500">姓名:wayen zhuo</span>
+                </div>
+              </template>
+            </a-auto-complete>
+            <a-button type="primary" style="height: 41px;" class="pl-5 pr-5 rounded-tr-3xl rounded-br-3xl">
+              <icon-search size="18" />
+            </a-button>
+          </div>
           <div class="w-full mt-3 flex">
             <a-select :bordered="false" :placeholder="t('categoryPlaceholder')">
               <a-option v-for="(option, index) in cateList" :key="index">{{ option.cate_name }}</a-option>
@@ -140,13 +158,15 @@
         </div>
       </div>
     </div>
-    <drawer-payment/>
-    <modal-goods-attr v-if="productAttrs.goodsName" :productAttrs="productAttrs"/>
-    <modal-customer-list :customerList="customerList"/>
-    <modal-salesperson v-if="cashierState.count>0" :staff-list="cashierState.staffList"/>
-    <modal-sales-mark/>
-    <modal-modify-price/>
-    <modal-recharge :recharges="rechargeList"/>
+    <drawer-payment v-if="modalsState.showPayment" :modalTitle="t('paymentType')"/>
+    <modal-goods-attr v-if="modalsState.showGoodsAttrsModal" :modalTitle="t('goodsAttr')" :productAttrs="productAttrs"/>
+    <!--    <modal-customer-list v-if="modalsState.showCustomerModal" :customerList="customerList"/>-->
+    <modal-salesperson v-if="modalsState.showSalesPerson" :modalTitle="t('modalSalespersonTitle')"
+                       :staff-list="cashierState.staffList"/>
+    <modal-sales-mark v-if="modalsState.showMark" :modalTitle="t('remark')"/>
+    <modal-modify-price v-if="modalsState.showModifyPrice" :modalTitle="t('remark')"/>
+    <modal-recharge v-if="modalsState.showRecharge" :modalTitle="t('remark')" :recharges="rechargeList"/>
+    <drawer-customer-details v-if="modalsState.showCustomerModal"/>
   </div>
 </template>
 <script setup>
@@ -157,15 +177,17 @@ import {cashierCart, cashierCartDel, cashierCartList, cashierCartNum, cashierCom
 import CustomerCard from "@/views/cashier/components/customer-card.vue";
 import DrawerPayment from "@/views/cashier/components/drawer-payment.vue";
 import {infoApi, cashierList} from "@/api/user.js";
-import ModalCustomerList from "@/views/cashier/components/modal-customer-list.vue";
 import ModalSalesMark from "@/views/cashier/components/modal-sales-mark.vue";
 import ModalSalesperson from "@/views/cashier/components/modal-salesperson.vue";
-import {useI18n} from "vue-i18n";
 import CounterTools from "@/views/cashier/components/counter-tools.vue";
 import ModalModifyPrice from "@/views/cashier/components/modal-modify-price.vue";
 import ModalRecharge from "@/views/cashier/components/modal-recharge.vue";
 import {getRechargeInfo} from "@/api/store.js";
-
+import {Message} from '@arco-design/web-vue';
+import {useI18n} from "vue-i18n";
+import DrawerCustomerDetails from "@/views/cashier/components/drawer-customer-details.vue";
+import HighlightWords from "vue-highlight-words";
+import {customerListSearch} from "@/api/customer.js";
 
 const {t} = useI18n();
 
@@ -194,7 +216,7 @@ const cateList = ref([]);
 const cartList = ref([]);
 // Customer list
 const customerList = ref([]);
-//rechar info form backend.
+//recharge info form backend.
 const rechargeList = ref([]);
 
 //using time as a new one.
@@ -225,6 +247,16 @@ const productAttrs = reactive({
   isSkill: false,
 });
 
+//tools status
+const toolsState = reactive({
+  pendingOrder: true,
+  recharge: true,
+  points: true,
+  coupon: true,
+  changePrice: true,
+  mark: true,
+})
+
 // Modal states
 const modalsState = reactive({
   showGoodsAttrsModal: false,
@@ -247,8 +279,7 @@ const cartPaymentHeight = ref(170);
 const cartState = reactive({
   total_cart: 0,
   payPrice: 0
-})
-
+});
 
 onMounted(async () => {
   await nextTick();
@@ -263,7 +294,6 @@ watch(
     () => modalsState.showCustomerModal,
     (newVal, oldVal) => {
       if (newVal) {
-        fetchCustomerList();
       }
     }
 );
@@ -274,18 +304,27 @@ const setModalVisibility = (modalName, visible) => {
 
 //To empty the cart.
 const clear_cart = () => {
-  const ids = {ids: []}
-  fetchData(() => cashierCartDel(customerInfo.value.uid, ids), data => {
-    goodsList.value = data.list;
-    //console.log(data.list);
+  fetchData(() => cashierCartDel(customerInfo.value.uid, {ids: cartIds.value}), (data, msg) => {
+    cartIds.value = [];
+    // get cart newly list again.
+    fetchCashierCartList();
+    Message.success(msg);
   });
-
 }
+
 // To delete one item in cart
-const del_goods = () => {
-  fetchData(() => cashierProduct(searchCondition), data => {
-    goodsList.value = data.list;
-    //console.log(data.list);
+const del_goods = (item) => {
+  let ids = cartIds.value;
+  console.log(ids, item.id)
+  fetchData(() => cashierCartDel(customerInfo.value.uid, {ids: [item.id]}), (data, msg) => {
+    let index = ids.indexOf(item.id);
+    if (index !== -1) {
+      cartIds.value.splice(index, 1);
+    }
+    //console.log(cartIds.value)
+    // get cart newly list again.
+    fetchCashierCartList();
+    Message.success(msg);
   });
 }
 
@@ -295,9 +334,11 @@ const addCart = (attrs) => {
   if (customerInfo.value.uid === 0) {
     attrs.tourist_uid = tourist_uid;
   }
-  fetchData(() => cashierCart(customerInfo.value.uid, attrs), data => {
+  fetchData(() => cashierCart(customerInfo.value.uid, attrs), (data, msg) => {
     if (data.cartId) {
-      cartIds.value.push(data.cartId);
+      Message.success(msg)
+      !cartIds.value.includes(data.cartId) ? cartIds.value.push(data.cartId) : null;
+      //console.log(cartIds.value);
       // get cart newly list again.
       fetchCashierCartList();
     }
@@ -320,11 +361,19 @@ const openGoodsAttr = (product) => {
   });
 }
 
-const setNewCustomer = async (userId) => {
-  modalsState.showCustomerModal = false;
-  const {data} = await fetchCustomerInfo();
-  customerInfo.value = data;
+const setNewCustomer = async (map) => {
+  //modalsState.showCustomerModal = false;
+  const {data} = await customerListSearch(map);
+  console.log(data);
 }
+
+const getCustomerList = async (map) => {
+  //modalsState.showCustomerModal = false;
+  const {data} = await customerListSearch(map);
+  return data;
+}
+
+
 //Set up a new clerk to make a sale
 const setNewStaff = (staff) => {
   modalsState.showSalesPerson = false;
@@ -337,8 +386,8 @@ const setNewStaff = (staff) => {
 // Generic function to handle API calls
 const fetchData = async (fetchFunction, successCallback, errorCallback = null) => {
   try {
-    const {data} = await fetchFunction();
-    successCallback(data);
+    const {data, msg} = await fetchFunction();
+    successCallback(data, msg);
   } catch (err) {
     if (errorCallback) {
       errorCallback(err);
@@ -357,12 +406,6 @@ const fetchCashierProduct = () => {
     goodsList.value = data.list;
     //console.log(data.list);
   });
-}
-
-//get customer info
-const fetchCustomerInfo = async () => {
-
-
 }
 
 //get recharge data for api
@@ -397,12 +440,19 @@ const fetchCashierCartList = () => {
     maps.tourist_uid = tourist_uid.value;
   }
   fetchData(() => cashierCartList(customer_id, staff_id, maps), async res => {
-    if (res.valid && res.valid.length > 0) {
-      cartList.value = res.valid[0].cart;
-    }
+
+    cartList.value = res.valid && res.valid.length > 0 ? res.valid : [];
     cartState.total_cart = res.count;
+
     if (res.count > 0) {
+      //enable mark of order
+      toolsState.mark = false;
+      //enable pending order
+      toolsState.pendingOrder = false;
+
       fetchCashierCompute();
+    } else {
+      cartState.payPrice = 0;
     }
   });
 };
@@ -416,7 +466,7 @@ const fetchCashierCompute = () => {
     integral: false
   }), data => {
     cartState.payPrice = data.payPrice;
-    console.log(data)
+    //console.log(data)
   });
 }
 
@@ -467,8 +517,7 @@ const fetchAllData = async () => {
     fetchCustomerCartRecord(),
     fetchCashierProduct(),
     fetchCashierList(),
-    fetchRechargeList(),
-    fetchCustomerList(),
+    fetchRechargeList()
   ]);
 };
 
@@ -477,6 +526,7 @@ provide('setModalVisibility', setModalVisibility);
 
 provide('setNewStaff', setNewStaff);
 provide('setNewCustomer', setNewCustomer);
+provide('getCustomerList', getCustomerList);
 provide('addCart', addCart);
 
 // Call the function to fetch all data

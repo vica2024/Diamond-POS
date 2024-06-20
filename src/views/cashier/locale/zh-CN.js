@@ -3,12 +3,15 @@ export default {
   items: "件",
   clearCart: "清除",
   clearCartConfirm: "你确定要清空购物车吗?",
+  deleteCartConfirm: "你确定要删除这条商品吗?",
   yes: "是",
   no: "否",
+  goodsAttr:"商品详情",
   noItems: "暂无商品，快去添加吧～",
   details: "明细",
   total: "实付",
   checkout: "结账",
+  paymentType:'请选择收款方式',
   recharge:"充值",
   hangOrder: "挂单",
   changePrice: "改价",
@@ -36,4 +39,42 @@ export default {
   couponAmount: '优惠券金额: ￥{amount}',
   pointsDeduction: '积分抵扣: ￥{points}',
   limitedTimeDiscount: '限时折扣: ￥{discount}',
+
+  modalSalespersonTitle: '店员列表',
+  searchSalespersonPlaceholder: '请输入ID或者手机号',
+  phone: '手机号',
+  loading: '加载中...',
+
+  modalTitle: '支付方式',
+  paymentScanPlaceholder: '请点击输入框聚焦扫码或输入编码号',
+  weChatAlipay: '微信/支付宝',
+  creditCard: '信用卡',
+  cash: '现金收款',
+  balancePayment: '余额支付',
+  cryptocurrency: '加密货币',
+  cancelPayment: '取消支付',
+  scanToPay: {
+    title: '扫码支付',
+    steps: [
+      '顾客用手机相机扫描二维码',
+      '自动检测是否安装加密货币APP',
+      '在手机APP上确认订单信息和支付金额'
+    ]
+  },
+  sendEmail: {
+    title: '发送邮件',
+    success: '发送成功',
+    subtitle: '加密货币邮件已经发送到zhu****ca@gmail.com',
+    resend: '重新发送'
+  },
+
+  //顾客查找弹框
+  searchCustomer:"顾客中心",
+  searchCustomerPlaceholder: "请输入您需要查找的顾客ID/手机号/E-mail/名字",
+  createCustomer:"新建",
+  placeholderPrefix:"请输入",
+  fullName:"顾客全名",
+  phoneNumber:'手机号',
+  email:'邮箱',
+  memberId:'会员号码'
 };
