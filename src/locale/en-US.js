@@ -8,6 +8,9 @@ import localeSettings from "./en-US/settings";
 //for cashier language
 import localeCashier from "@/views/cashier/locale/en-US.js";
 
+//for customer land
+import localeCustomer from "@/views/customer/locale/en-US.js";
+
 export default {
 	"menu.cashier": "Sales",
 	"menu.refund": "Refund",
@@ -36,6 +39,7 @@ export default {
 	"modal.footer.cancel": "Cancel",
 	"modal.footer.ok": "Ok",
 	"modal.footer.save": "Save",
+	"modal.footer.create": "Create",
 	"modal.footer.delete": "Delete",
 
 	"message.success.add": "Add Succeeded",
@@ -47,6 +51,8 @@ export default {
 	"message.error.delete": "Delete Error",
 	"message.error.operations": "Action Failed",
 
+	"placeholder.prefix":"Please enter",
+
 	...localeSettings,
 	...localeMessageBox,
 	...localeLogin,
@@ -54,4 +60,5 @@ export default {
 	...locale404,
 	...locale500,
 	...localeCashier,
+	...localeCustomer
 };

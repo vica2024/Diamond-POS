@@ -67,13 +67,4 @@ export default {
     resend: 'Resend'
   },
 
-  //for customer modal
-  searchCustomer:"Customer Center",
-  searchCustomerPlaceholder: "Please enter Customer's ID or Phone Number or E-mail  Name ",
-  createCustomer:"Create",
-  placeholderPrefix:"please enter ",
-  fullName:"Customer's Name",
-  phoneNumber:'Phone Number',
-  email:'Email',
-  memberId:'Member ID',
 };

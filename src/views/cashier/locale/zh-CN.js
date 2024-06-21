@@ -67,14 +67,4 @@ export default {
     subtitle: '加密货币邮件已经发送到zhu****ca@gmail.com',
     resend: '重新发送'
   },
-
-  //顾客查找弹框
-  searchCustomer:"顾客中心",
-  searchCustomerPlaceholder: "请输入您需要查找的顾客ID/手机号/E-mail/名字",
-  createCustomer:"新建",
-  placeholderPrefix:"请输入",
-  fullName:"顾客全名",
-  phoneNumber:'手机号',
-  email:'邮箱',
-  memberId:'会员号码'
 };

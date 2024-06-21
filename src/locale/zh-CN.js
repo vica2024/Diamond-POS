@@ -9,6 +9,9 @@ import localeSettings from "./zh-CN/settings";
 //for cashier language
 import localeCashier from "@/views/cashier/locale/zh-CN.js";
 
+//for customer language
+import localeCustomer from "@/views/customer/locale/zh-CN.js";
+
 export default {
 	"menu.cashier": "销售",
 	"menu.refund": "退货",
@@ -37,6 +40,7 @@ export default {
 	"modal.footer.cancel": "取消",
 	"modal.footer.ok": "确定",
 	"modal.footer.save": "保存",
+	"modal.footer.create": "创建",
 	"modal.footer.delete": "删除",
 
 	"message.success.add": "新增成功",
@@ -48,6 +52,8 @@ export default {
 	"message.error.delete": "删除失败",
 	"message.error.operations": "操作失败",
 
+	"placeholder.prefix":"请输入",
+
 	...localeSettings,
 	...localeMessageBox,
 	...localeLogin,
@@ -55,4 +61,5 @@ export default {
 	...locale404,
 	...locale500,
 	...localeCashier,
+	...localeCustomer,
 };

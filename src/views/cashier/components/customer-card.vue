@@ -27,7 +27,7 @@ const setModalVisibility = inject('setModalVisibility');
         <span
             class="font-bold text-base pr-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ customerInfo.nickname }}</span>
         <span class="cursor-pointer text-orange-600 hover:text-orange-300"
-              @click="setModalVisibility('showCustomerModal', true)"> {{ t('switchCustomer') }}
+              @click="setModalVisibility('showCustomerSearchModal', true)"> {{ t('switchCustomer') }}
           <icon-down/>
         </span>
       </div>

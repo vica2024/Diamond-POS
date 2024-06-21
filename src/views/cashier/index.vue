@@ -119,7 +119,7 @@
               </template>
             </a-auto-complete>
             <a-button type="primary" style="height: 41px;" class="pl-5 pr-5 rounded-tr-3xl rounded-br-3xl">
-              <icon-search size="18" />
+              <icon-search size="18"/>
             </a-button>
           </div>
           <div class="w-full mt-3 flex">
@@ -158,15 +158,17 @@
         </div>
       </div>
     </div>
-    <drawer-payment v-if="modalsState.showPayment" :modalTitle="t('paymentType')"/>
-    <modal-goods-attr v-if="modalsState.showGoodsAttrsModal" :modalTitle="t('goodsAttr')" :productAttrs="productAttrs"/>
+    <drawer-payment  :modalTitle="t('paymentType')"/>
+    <modal-goods-attr v-if="productAttrs.goodsName" :modalTitle="t('goodsAttr')" :productAttrs="productAttrs"/>
     <!--    <modal-customer-list v-if="modalsState.showCustomerModal" :customerList="customerList"/>-->
-    <modal-salesperson v-if="modalsState.showSalesPerson" :modalTitle="t('modalSalespersonTitle')"
+    <modal-salesperson :modalTitle="t('modalSalespersonTitle')"
                        :staff-list="cashierState.staffList"/>
-    <modal-sales-mark v-if="modalsState.showMark" :modalTitle="t('remark')"/>
-    <modal-modify-price v-if="modalsState.showModifyPrice" :modalTitle="t('remark')"/>
-    <modal-recharge v-if="modalsState.showRecharge" :modalTitle="t('remark')" :recharges="rechargeList"/>
-    <drawer-customer-details v-if="modalsState.showCustomerModal"/>
+    <modal-sales-mark :modalTitle="t('remark')"/>
+    <modal-modify-price  :modalTitle="t('remark')"/>
+    <modal-recharge :modalTitle="t('remark')" :recharges="rechargeList"/>
+    <drawer-customer-search/>
+    <!--  customer create drawer  -->
+    <drawer-customer-create />
   </div>
 </template>
 <script setup>
@@ -185,9 +187,10 @@ import ModalRecharge from "@/views/cashier/components/modal-recharge.vue";
 import {getRechargeInfo} from "@/api/store.js";
 import {Message} from '@arco-design/web-vue';
 import {useI18n} from "vue-i18n";
-import DrawerCustomerDetails from "@/views/cashier/components/drawer-customer-details.vue";
 import HighlightWords from "vue-highlight-words";
 import {customerListSearch} from "@/api/customer.js";
+import DrawerCustomerSearch from "@/views/customer/components/drawer-customer-search.vue";
+import DrawerCustomerCreate from "@/views/customer/components/drawer-customer-create.vue";
 
 const {t} = useI18n();
 
@@ -261,12 +264,13 @@ const toolsState = reactive({
 const modalsState = reactive({
   showGoodsAttrsModal: false,
   showPayment: false,
-  showCustomerModal: false,
   showSalesPerson: false,
   showPriceDetail: false,
   showRecharge: false,
   showModifyPrice: false,
   showMark: false,
+  showCustomerSearchModal: false,
+  showCustomerCreate: false,
 });
 
 const toolsWidth = ref(0);
@@ -291,7 +295,7 @@ onMounted(async () => {
 });
 
 watch(
-    () => modalsState.showCustomerModal,
+    () => modalsState.showCustomerSearchModal,
     (newVal, oldVal) => {
       if (newVal) {
       }
@@ -362,13 +366,11 @@ const openGoodsAttr = (product) => {
 }
 
 const setNewCustomer = async (map) => {
-  //modalsState.showCustomerModal = false;
   const {data} = await customerListSearch(map);
   console.log(data);
 }
 
 const getCustomerList = async (map) => {
-  //modalsState.showCustomerModal = false;
   const {data} = await customerListSearch(map);
   return data;
 }
