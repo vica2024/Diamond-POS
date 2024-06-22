@@ -7,7 +7,8 @@
 <p align="center">
     <a href="" target="_blank">主页</a> |
     <a href="" target="_blank">文档</a> | 
-    <a href="" target="_blank">演示</a> 
+    <a href="" target="_blank">演示</a> | 
+    <a href="https://arco.design" target="_blank">Arco Design官方文档</a> 
 </p>
 
 这是一款专门为线下品牌连锁门店量身定制的POS系统，可自适应PC和iPad。当尊贵的顾客光临您的品牌店铺，专业销售员介绍产品后，顾客产生购买意向。此时，专业销售员使用专业iPad POS，与顾客共享高质量、高效率的购物体验。这无疑将提升您的品牌形象。该系统不仅提供主流的POS基本功能和友好的用户界面，还可根据您的品牌色调进行自定义。它是您企业数字化的基石，助力实现"营销在线"、"销售在线"、"服务在线"和"生产在线"的目标。
@@ -15,11 +16,24 @@
 开源不易， 如果您能动动您的发财的小手给个小星星⭐star， 将是对我最大的支持和鼓励！
 
 
-## 流程图
-
-
-## 架构图
-
+## 项目清单
+- plugin
+- public
+- src
+    - api
+    - assets
+    - components
+    - config
+    - directive
+    - hooks
+    - layout
+    - locale
+    - mock
+    - router
+    - store
+    - utils
+    - views
+- ....
 
 ## 安装使用
 
