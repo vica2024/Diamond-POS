@@ -34,8 +34,9 @@ export default {
     colorPreference: '颜色',
     languagePreference: '语言',
     stylePreference:'款式',
-    female:"女性",
-    male:'男性',
-    sexSecret:'保密'
+    female:"女士",
+    male:'先生',
+    sexSecret:'保密',
+    policy:'个人信息收集与使用条款',
   }
 };

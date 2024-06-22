@@ -31,6 +31,7 @@ export default {
     memberId: 'Member ID',
     female:"Female",
     male:'Male',
-    sexSecret:'Secret'
+    sexSecret:'Secret',
+    policy:'Personal Information Collection and Use Terms',
   }
 };

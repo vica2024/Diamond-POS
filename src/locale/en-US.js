@@ -51,7 +51,7 @@ export default {
 	"message.error.delete": "Delete Error",
 	"message.error.operations": "Action Failed",
 
-	"placeholder.prefix":"Please enter",
+	"placeholder.prefix":"Please enter ",
 
 	...localeSettings,
 	...localeMessageBox,
