@@ -52,7 +52,7 @@ yarn build
 
 加微信的时候请说明来意，谢谢！
 
-<img src="https://s21.ax1x.com/2024/06/11/pkUN61K.png" alt="pkUN61K.png" />
+<img src="https://i.postimg.cc/MvkqZPqQ/rrrrimage.png"  alt='diamond POS '/>
 
 ## 软件截图
 <img src="https://s21.ax1x.com/2024/06/11/pkUYRgO.png" alt="diamond POS" />
