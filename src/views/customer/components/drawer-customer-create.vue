@@ -131,6 +131,7 @@ const customerInfoFrom = reactive({
   agree: true
 });
 
+
 const loading = ref(false);
 
 const options = [
